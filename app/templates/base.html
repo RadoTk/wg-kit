@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navigation_tags blog_tags %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags django_htmx blog_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,9 @@
             {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
             {% endblock %}
         </title>
+        
+        {% htmx_script %}
+
         {% if page.search_description %}
         <meta name="description" content="{{ page.search_description }}" />
         {% endif %}
@@ -34,7 +37,7 @@
         {% endblock %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}{% endblock %}" hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
 
         {% include "includes/header.html" %}
 

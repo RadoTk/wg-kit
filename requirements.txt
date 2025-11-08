@@ -86,3 +86,5 @@ wagtail==7.1
     # via wagtail-starter-kit
 willow==1.11.0
     # via wagtail
+
+django-htmx>=1.26.0
