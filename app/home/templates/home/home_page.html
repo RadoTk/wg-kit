@@ -1,24 +1,126 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
+ {%block content %}
 
-{% block body_class %}template-homepage{% endblock %}
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/swiper@9/swiper-bundle.min.css"
+/>
 
-{% block content %}
+<body>
+    <!-- Scroll-top -->
+    <button class="scroll-top scroll-to-target" data-target="html">
+        <i class="icon-chevrons-up"></i>
+    </button>
+    <!-- Scroll-top-end-->
 
-{% image page.image fill-1920x1080 as hero_image %}
+    <main>
+        <!-- Slider principal  -->
+        <section
+            id="main-slider"
+            hx-get="{% url 'sliders:load_slider' self.id 'header' %}"
+            hx-trigger="load"
+            hx-target="#main-slider"
+            hx-swap="innerHTML"
+        >
+            <div>Chargement du slider header...</div>
+        </section>
 
-<article style="background-image: url('{{ hero_image.url }}')" role="hero">
-    <mark>{{ page.hero_text }}</mark>
-    {% if page.hero_cta_link %}
-    <a href="{% pageurl page.hero_cta_link %}" role="button">
-        {% firstof page.hero_cta page.hero_cta_link.title %}
-    </a>
-    {% endif %}
-</article>
+        <!-- Valeurs -->
+        {% include "base/simple_content_page.html" %}
 
-<article>
-    <h1>{{ page.title }}</h1>
-    {{ page.body|richtext }}
-</article>
+        <!-- Engagement -->
+        <section class="product-feature-area product-feature pt-80 pb-20">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="tpfeature__thumb p-relative pb-40">
+                            {% image page.image max-800x650 as img %}
+                            <img src="{{ img.url }}" alt="{{ page.title }}" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="tpproduct-feature p-relative pt-45 pb-40">
+                            <div class="tpsection tpfeature__content mb-35">
+                                <h4 class="tpsection__sub-title mb-0">
+                                    ~ The Best For Your ~
+                                </h4>
+                                <h4
+                                    class="tpsection__title tpfeature__title mb-25"
+                                >
+                                    {{page.title}}
+                                </h4>
+                                <p>{{page.hero_text}}.</p>
+                                <h4 class="tpfeature__price-red mb-45">
+                                    From:<span>$54.00</span>/per kilogram.
+                                </h4>
+                                {% if page.hero_cta_link%}
+                                <a
+                                    class="tp-btn-4"
+                                    href="{{ page.hero_cta_link.url }}"
+                                    >{{page.hero_cta}}</a
+                                >
+                                {%endif%}
+                            </div>
+                            <div class="tpfeature__shape d-none d-md-block">
+                                <img
+                                    class="tpfeature__shape-three"
+                                    src="assets/img/product/feature-shape-3.png"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- Testimonials -->
+        <section
+            id="testimonial-slider"
+            hx-get="{% url 'base:load_slider' self.id 'testimonials' %}"
+            hx-trigger="load"
+            hx-target="#testimonial-slider"
+            hx-swap="innerHTML"
+        >
+            <div>Chargement du slider testimonials...</div>
+        </section>
+
+      
+        <!-- subscribe-are-end -->
+    </main>
+    <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        document.body.addEventListener('htmx:afterSwap', function (evt) {
+            if (evt.detail.target.id === 'main-slider') {
+                new Swiper('.slider-active', {
+                    loop: true,
+                    autoplay: { delay: 3000 },
+                    navigation: {
+                        nextEl: '.tpslider__arrow-nxt',
+                        prevEl: '.tpslider__arrow-prv',
+                    },
+                    pagination: {
+                        el: '.slider-pagination',
+                        clickable: true,
+                    },
+                });
+            }
+
+            if (evt.detail.target.id === 'testimonial-slider') {
+                new Swiper('.tptestimonial-active', {
+                    loop: true,
+                    autoplay: { delay: 4000 },
+                    navigation: {
+                        nextEl: '.tptestimonial-arrow-right',
+                        prevEl: '.tptestimonial-arrow-left',
+                    },
+                });
+            }
+        });
+    </script>
+</body>
 
 {% endblock content %}

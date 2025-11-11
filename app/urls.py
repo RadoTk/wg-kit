@@ -14,6 +14,7 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     # Remove if not required
     path("style-guide/", include("app.style_guide.urls")),
+    path("sliders/", include("app.sliders.urls")),
 ]
 
 
