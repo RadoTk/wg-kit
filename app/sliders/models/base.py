@@ -123,14 +123,14 @@ class Person(
         return "{} {}".format(self.first_name, self.last_name)
 
     def get_preview_template(self, request, mode_name):
-        from rootapp.blog.models import BlogPage
+        from app.blog.models import BlogPage
 
         if mode_name == "blog_post":
             return BlogPage.template
         return "base/preview/person.html"
 
     def get_preview_context(self, request, mode_name):
-        from rootapp.blog.models import BlogPage
+        from app.blog.models import BlogPage
 
         context = super().get_preview_context(request, mode_name)
         if mode_name == self.default_preview_mode:

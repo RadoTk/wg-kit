@@ -4,11 +4,11 @@ from wagtail.admin.userbar import AccessibilityItem
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
-from rootapp.base.filters import RevisionFilterSetMixin
-from rootapp.base.models import FooterText, Person
+from app.sliders.filters import RevisionFilterSetMixin
+from app.sliders.models import FooterText, Person
 
-from rootapp.base.models import Slide, Slider
-from rootapp.base.models.slider_placement import SliderPlacement
+from app.sliders.models import Slide, Slider
+from app.sliders.models.slider_placement import SliderPlacement
 
 
 """

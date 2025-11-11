@@ -3,7 +3,7 @@ from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
 
-from rootapp.base.models import Slider 
+from app.sliders.models import Slider 
 
 
 

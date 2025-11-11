@@ -9,16 +9,16 @@ from wagtail.images.models import Image
 from wagtail.rich_text import RichText
 from willow.image import Image as WillowImage
 
-from rootapp.base.models import FooterText, HomePage, Person, StandardPage
-from rootapp.blog.models import BlogIndexPage, BlogPage
-from rootapp.breads.models import (
+from app.base.models import FooterText, HomePage, Person, StandardPage
+from app.blog.models import BlogIndexPage, BlogPage
+from app.breads.models import (
     ProductIngredient,
     ProductArticlePage,
     ProductArticlesIndexPage,
     ProductCategory,
     ProductOrigin,
 )
-from rootapp.locations.models import LocationPage, LocationsIndexPage
+from app.locations.models import LocationPage, LocationsIndexPage
 
 FIXTURE_MEDIA_DIR = Path(settings.PROJECT_DIR) / "base/fixtures/media/original_images"
 

@@ -27,8 +27,7 @@
         </section>
 
         <!-- Valeurs -->
-        {% include "base/simple_content_page.html" %}
-
+       
         <!-- Engagement -->
         <section class="product-feature-area product-feature pt-80 pb-20">
             <div class="container">
@@ -80,7 +79,7 @@
         <!-- Testimonials -->
         <section
             id="testimonial-slider"
-            hx-get="{% url 'base:load_slider' self.id 'testimonials' %}"
+            hx-get="{% url 'sliders:load_slider' self.id 'testimonials' %}"
             hx-trigger="load"
             hx-target="#testimonial-slider"
             hx-swap="innerHTML"

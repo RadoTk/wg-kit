@@ -29,7 +29,7 @@ class Slider(ClusterableModel):
 class SliderItem(Orderable):
     """Relie un slide à un slider (avec ordre configurable)"""
     slider = ParentalKey(Slider, related_name="slide_items", on_delete=models.CASCADE)
-    slide = models.ForeignKey("base.Slide", on_delete=models.CASCADE, related_name="+")
+    slide = models.ForeignKey("sliders.Slide", on_delete=models.CASCADE, related_name="+")
     
     panels = [
         FieldPanel("slide"),
