@@ -1,0 +1,10 @@
+# Normalisation des fichiers texte
+* text=auto
+
+# Forcer LF pour le code Python
+*.py text eol=lf
+
+# Forcer LF pour les templates et fichiers front-end
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
