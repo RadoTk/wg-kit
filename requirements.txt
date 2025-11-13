@@ -11,6 +11,9 @@ beautifulsoup4==4.13.4
 certifi==2025.8.3
     # via requests
 charset-normalizer==3.4.3
+
+channels==4.3.1
+
     # via requests
 defusedxml==0.7.1
     # via willow
@@ -78,6 +81,9 @@ requests==2.32.4
 soupsieve==2.7
     # via beautifulsoup4
 sqlparse==0.5.3
+
+stripe==13.0.1
+
     # via django
 telepath==0.3.1
     # via wagtail

@@ -1,0 +1,25 @@
+<form action="{% url 'cart:add' product.id %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="update" value="False" id="update">
+
+    <div class="input-group" style="max-width: 250px;">
+        <span class="input-group-text bg-light border-end-0 small">
+            Quantity
+        </span>
+        <input
+            type="number"
+            name="quantity"
+            id="quantity-{{ product.id }}"
+            value="1"
+            min="1"
+            required
+            class="form-control text-center border-start-0 border-end-0"
+            style="max-width: 80px;"
+        >
+        
+        <button type="submit" class="btn btn-primary px-3">
+            <i class="fas fa-cart-plus me-2"></i>
+            Add to cart
+        </button>
+    </div>
+</form>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}
+    Cart Bakery
+{% endblock title %}
+
+{% block content %}
+<main class="container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center">
+        <h1>Your Cart</h1>
+    </div>
+    <div id="cart-content">
+    {% include "cart/_cart_summary.html" %}
+    </div>
+
+ 
+</main>
+{% endblock content %}

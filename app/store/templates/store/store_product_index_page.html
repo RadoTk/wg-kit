@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+
+    {% if page.intro %}
+      <div class="intro">
+        {{ page.intro|richtext }}
+      </div>
+    {% endif %}
+
+    <div class="product-list">
+      {% for product in products %}
+  <div class="product">
+    <h2>
+      {% with product.linked_objects.first as link %}
+        {% if link %}
+          <a href="{{ link.target_url }}">{{ product.title }}</a>
+        {% else %}
+          <a href="{% pageurl product %}">{{ product.title }}</a>
+        {% endif %}
+      {% endwith %}
+    </h2>
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.title }}">
+    {% endif %}
+    <p>{{ product.specific.price_usd }} €</p>
+  </div>
+{% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

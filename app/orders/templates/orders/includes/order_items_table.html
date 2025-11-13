@@ -1,0 +1,33 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+  <h2 style="margin: 0;">🧾 Produits commandés</h2>
+  <a href="{% url 'order:edit' order.pk %}" class="button button-secondary">
+    🛠 Changer le statut
+  </a>
+</div>
+
+<table class="listing full-width">
+  <thead>
+    <tr>
+      <th scope="col">Produit</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix unitaire</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in order.items.all %}
+    <tr>
+      <td>{{ item.product_title }}</td>
+      <td class="text-center">{{ item.quantity }}</td>
+      <td>{{ item.price }} €</td>
+      <td>{{ item.get_cost }} €</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" class="text-end"><strong>Total</strong></td>
+      <td><strong>{{ order.get_total_items_cost }} €</strong></td>
+    </tr>
+  </tfoot>
+</table>

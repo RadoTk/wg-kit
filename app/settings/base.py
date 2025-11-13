@@ -31,6 +31,13 @@ INSTALLED_APPS = [
     "app.portfolio",
     "app.search",
     "app.sliders",
+    "app.users",
+    "app.orders",
+    "app.cart",
+    "app.store",
+    "channels",
+    "app.page_links",
+
     "wagtailfontawesomesvg",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -55,6 +62,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+CART_SESSION_ID = 'cart'
+
 
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
@@ -90,6 +100,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "app.wsgi.application"
+
+ASGI_APPLICATION = 'app.asgi.application'
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  
+    }
+}
+
 
 
 # Database
@@ -228,3 +248,8 @@ WAGTAILDOCS_EXTENSIONS = [
 # and it is recommended to increase this from Django’s default of 1000,
 # as particularly complex page models can exceed this limit within Wagtail’s page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold text-primary mb-4">{{ page.title }}</h1>
+            
+            {% if page.intro %}
+            <div class="intro lead text-muted mx-auto" >
+                {{ page.intro|richtext }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="product-list">
+        {% if products %}
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 product-card">
+
+                    {% if product.image %}
+                    <div class="card-img-top-container" style="height: 250px; overflow: hidden;">
+                        <figure class="mb-4">
+                          {% image product.image max-400x400 class="rounded-lg shadow-md" alt="Product image of {{ page.title }}" %}
+                        </figure>
+                    </div>
+
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                         style="height: 250px;">
+                        <span class="text-muted">No image</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">
+                            <a href="{% pageurl product %}" 
+                               class="text-decoration-none text-dark fw-bold">
+                                {{ product.title }}
+                            </a>
+                        </h5>
+                        
+                        <div class="card-text text-muted mb-3 flex-grow-1">
+                            {{ product.description|richtext|truncatewords:30 }}
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 text-primary fw-bold mb-0">
+                                    {{ product.price_usd }} €
+                                </span>
+                                {% include "store/add_to_cart.html" with product=product %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        
+        <div class="text-center py-5">
+            <div class="alert alert-info mx-auto" style="max-width: 500px;">
+                <i class="fas fa-info-circle me-2"></i>
+                Aucun produit disponible pour le moment.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

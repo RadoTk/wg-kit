@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Connexion</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Se connecter</button>
+  </form>
+
+  {% if form.errors %}
+    <p style="color:red;">Identifiants incorrects, veuillez réessayer.</p>
+  {% endif %}
+{% endblock %}

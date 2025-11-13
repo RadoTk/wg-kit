@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Modifier mon profil</h1>
+
+  {# Affichage des messages de succès / erreur #}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <fieldset>
+      <legend>Informations utilisateur</legend>
+      {{ user_form.non_field_errors }}
+
+      <div>
+        {{ user_form.username.label_tag }}
+        {{ user_form.username }}
+        {{ user_form.username.errors }}
+      </div>
+
+      <div>
+        {{ user_form.email.label_tag }}
+        {{ user_form.email }}
+        {{ user_form.email.errors }}
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Adresse</legend>
+      {{ profile_form.non_field_errors }}
+
+      <div>
+        {{ profile_form.address.label_tag }}
+        {{ profile_form.address }}
+        {{ profile_form.address.errors }}
+      </div>
+
+      <div>
+        {{ profile_form.postal_code.label_tag }}
+        {{ profile_form.postal_code }}
+        {{ profile_form.postal_code.errors }}
+      </div>
+
+      <div>
+        {{ profile_form.country.label_tag }}
+        {{ profile_form.country }}
+        {{ profile_form.country.errors }}
+      </div>
+
+      <div>
+        {{ profile_form.phone_number.label_tag }}
+        {{ profile_form.phone_number }}
+        {{ profile_form.phone_number.errors }}
+      </div>
+    </fieldset>
+
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <style>
+    form {
+      max-width: 600px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    fieldset {
+      border: none;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .messages {
+      max-width: 600px;
+      margin: 1rem auto;
+      padding: 0;
+      list-style: none;
+    }
+    .messages li {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #4caf50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+{% endblock %}

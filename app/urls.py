@@ -15,6 +15,10 @@ urlpatterns = [
     # Remove if not required
     path("style-guide/", include("app.style_guide.urls")),
     path("sliders/", include("app.sliders.urls")),
+    path("user/", include("app.users.urls", namespace='users')),
+    path("orders/", include("app.orders.urls", namespace='orders')),
+    path('page_links/', include('app.page_links.urls', namespace='page_links')),
+    path('cart/', include('app.cart.urls', namespace='cart')),
 ]
 
 
