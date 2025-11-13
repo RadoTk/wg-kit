@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "styles": "sass static_src/scss:static_compiled/css",
-    "styles:prod": "concurrently \"npm run styles -- --style=compressed\"",
+    "styles:prod": "concurrently \"npm run styles -- --style=expanded\"",
     "styles:watch": "concurrently \"npm run styles -- --style=expanded --watch\"",
     "scripts": "esbuild --bundle --sourcemap static_src/js/app.js --outfile=static_compiled/js/app.js",
     "scripts:prod": "concurrently \"npm run scripts -- --minify\"",

@@ -1,0 +1,40 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="testimonial-area pt-60 pb-60">
+  <div class="container">
+    <div class="swiper-container tptestimonial-active p-relative">
+      <div class="swiper-wrapper">
+        {% for item in slides %}
+          {% with slide=item.slide %}
+            <div class="swiper-slide">
+              <div class="row justify-content-center p-relative">
+                <div class="col-md-8">
+                  <div class="tptestimonial__item text-center">
+                    {% if slide.background_image %}
+                      <div class="tptestimonial__avata mb-25">
+                        {% image slide.background_image fill-100x100 class="rounded-circle" %}
+                      </div>
+                    {% endif %}
+                    <div class="tptestimonial__content">
+                      <p>{{ slide.description|richtext }}</p>
+                      
+                      <h4 class="tptestimonial__title">{{ slide.title }}</h4>
+                      {% if slide.subtitle %}
+                        <span class="tptestimonial__avata-position">{{ slide.subtitle }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endwith %}
+        {% endfor %}
+      </div>
+
+      <div class="tptestimonial-arrow d-none d-md-block">
+        <button class="testi-arrow tptestimonial-arrow-left"><i class="icon-chevron-left"></i></button>
+        <button class="testi-arrow tptestimonial-arrow-right"><i class="icon-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
