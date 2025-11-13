@@ -1,12 +1,5 @@
-{% extends "base.html" %}
-
-{% load static wagtailcore_tags wagtailimages_tags wagtailadmin_tags blog_tags %}
-
-{% block body_class %}template-blogpage{% endblock %}
-
-{% block content %}
-
-  <section class="blog-area pt-80">
+{% with post=post.specific %}
+<section class="blog-area pt-80">
             <div class="container">
                <div class="row">
                   <div class="col-xl-10 col-lg-9">
@@ -15,44 +8,26 @@
                            <div class="row">
                               <div class="col-lg-6 col-md-6">
                                  <div class="tpblog__item tpblog__item-2 mb-20">
-                                   <article>
+                                   {% with post.main_image as main_image %}
 
-    <div>
-        {{ page.body|richtext }}
-    </div>
+            {% if main_image %}
+            <figure>
+                {% image main_image fill-160x100 %}
+            </figure>
+            {% endif %}
 
-    {% for item in page.gallery_images.all %}
-
-    {% if forloop.first or forloop.counter0|divisibleby:4 %}
-    {% comment %} Start a new row {% endcomment %}
-    <div class="grid">
-    {% endif %}
-
-        <figure>
-            {% image item.image fill-600x400 %}
-            <figcaption>
-                {{ item.caption }}
-            </figcaption>
-        </figure>
-
-    {% if forloop.last or forloop.counter|divisibleby:4 %}
-    {% comment %} End row {% endcomment %}
-    </div>
-
-    {% endif %}
-
-    {% endfor %}
+            {% endwith %}
 
 </article>
                                     <div class="tpblog__wrapper">
                                        <div class="tpblog__entry-wap">
                                           <span class="cat-links"><a href="shop-details.html">Lifestyle</a></span>
                                           <span class="author-by"><a href="#">Admin</a></span>
-                                          <span class="post-data"><a href="#">{{ page.date }}</a></span>
+                                          <span class="post-data"><a href="#">{{ post.date }}</a></span>
                                        </div>
-                                       <h4 class="tpblog__title"><a href="blog-details.html">{{ page.title }}
+                                       <h4 class="tpblog__title"><a href="blog-details.html">{{ post.title }}
                                           </a></h4>
-                                       <p>{{ page.title }}</p>
+                                       <p>{{ post.body }}</p>
                                        <div class="tpblog__details">
                                           <a href="blog-details.html">Continue reading <i class="icon-chevrons-right"></i> </a>
                                        </div>
@@ -126,6 +101,3 @@
                </div>
             </div>
          </section>
-{% endblock %}
-
-       

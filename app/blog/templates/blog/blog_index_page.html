@@ -5,49 +5,114 @@
 {% block body_class %}template-blogindexpage{% endblock %}
 
 {% block content %}
+    <section class="blog-area pt-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 col-lg-9">
+                    <div class="tpblog__left-wrapper">
+                        {% for post in blogpages %}
+                            {% with post=post.specific %}
+                                {% if forloop.first or forloop.counter0|divisibleby:3 %}
+                                    <!-- Start a new row -->
+                                    <div class="row">
+                                {% endif %}
 
-<article>
-    <h1>{{ page.title }}</h1>
-    <div class="intro">{{ page.intro|richtext }}</div>
-</article>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="tpblog__item tpblog__item-2 mb-20">
+                                        {% if post.main_image %}
+                                            <figure>
+                                                {% image post.main_image fill-480x400 %}
+                                            </figure>
+                                        {% endif %}
 
-{% for post in blogpages %}
+                                        <div class="tpblog__wrapper">
+                                            <div class="tpblog__entry-wap">
+                                                <span class="cat-links"><a href="shop-details.html">Lifestyle</a></span>
+                                                <span class="author-by"><a href="#">Admin</a></span>
+                                                <span class="post-data"><a href="#">{{ post.date }}</a></span>
+                                            </div>
+                                            <h4 class="tpblog__title">
+                                                <a href="{% pageurl post %}">{{ post.title }}</a>
+                                            </h4>
+                                            <p>{{ post.intro|truncatewords:30 }}</p>
+                                            <div class="tpblog__details">
+                                                <a href="{% pageurl post %}">Continue reading <i class="icon-chevrons-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-{% if forloop.first or forloop.counter0|divisibleby:3 %}
-{% comment %} Start a new row {% endcomment %}
-<div class="grid">
-    {% endif %}
+                                {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
+                                    <!-- Close the row -->
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                </div>
 
-    <article>
-        {% with post=post.specific %}
-        <header>
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        </header>
-        <div class="grid">
-            {% with post.main_image as main_image %}
+                <div class="col-xl-2 col-lg-3">
+                    <div class="tpblog__right-item pb-50">
+                        <div class="sidebar__widget mb-30">
+                            <div class="sidebar__widget-content">
+                                <div class="sidebar__search">
+                                    <form action="#">
+                                        <div class="sidebar__search p-relative">
+                                            <input type="text" placeholder="Search">
+                                            <button type="submit"><i class="far fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
-            {% if main_image %}
-            <figure>
-                {% image main_image fill-160x100 %}
-            </figure>
-            {% endif %}
-
-            {% endwith %}
-            <div>
-                <p>{{ post.intro }}</p>
-                {% comment %} Don't display the body text here
-                {{ post.body|richtext }}
-                {% endcomment %}
+                        <div class="sidebar__widget mb-55">
+                            <h3 class="sidebar__widget-title mb-15">Tags</h3>
+                            <div class="sidebar__widget-content">
+                                <div class="tagcloud">
+                                    <a href="blog-details.html">healthy</a>
+                                    <a href="blog-details.html">natural</a>
+                                    <a href="blog-details.html">salad</a>
+                                    <a href="blog-details.html">foods</a>
+                                    <a href="blog-details.html">orfarm</a>
+                                    <a href="blog-details.html">meat</a>
+                                    <a href="blog-details.html">grocery </a>
+                                    <a href="blog-details.html">fresh</a>
+                                    <a href="blog-details.html">vegan</a>
+                                    <a href="blog-details.html">vegetables</a>
+                                    <a href="blog-details.html">seafoods</a>
+                                    <a href="blog-details.html">fruits</a>
+                                    <a href="blog-details.html">tomato</a>
+                                    <a href="blog-details.html">cooking</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        {% endwith %}
-    </article>
+    </section>
 
-    {% if forloop.last or forloop.counter|divisibleby:3 %}
-    {% comment %} End the row {% endcomment %}
-</div>
-{% endif %}
-
-{% endfor %}
-
+    <!-- Pagination -->
+    <div class="tpbasic__pagination pr-100">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="basic-pagination text-center mb-80">
+                    <nav>
+                        <ul>
+                            {% for page_num in blogpages.paginator.page_range %}
+                                <li>
+                                    {% if blogpages.number == page_num %}
+                                        <span class="current">{{ page_num }}</span>
+                                    {% else %}
+                                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
