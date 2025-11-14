@@ -1,3 +1,4 @@
+{% load wagtailcore_tags wagtailimages_tags %}
 <header>
     <div class="header__top theme-bg-1 d-none d-md-block">
         <div class="container">
@@ -311,7 +312,12 @@
                                         </ul>
                                     </li>
                                     <li class="has-dropdown">
-                                        <a href="blog.html">Blog</a>
+                                        {% if blog_index_page %}
+                                            <a href="{% pageurl blog_index_page %}">Blog</a>
+                                        {% else %}
+                                            <a href="/">Blog</a>
+                                        {% endif %}
+
                                         <ul class="sub-menu">
                                             <li>
                                                 <a href="blog.html"

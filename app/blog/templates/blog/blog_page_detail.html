@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+    <!-- Scroll-top -->
+    <button class="scroll-top scroll-to-target" data-target="html">
+        <i class="icon-chevrons-up"></i>
+    </button>
+    <!-- Scroll-top-end -->
+
+    <main>
+
+        <!-- breadcrumb-area-start -->
+        <div class="breadcrumb__area pt-5 pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tp-breadcrumb__content">
+                            <div class="tp-breadcrumb__list">
+                                <span class="tp-breadcrumb__active"><a href="/">Home</a></span>
+                                <span class="dvdr">/</span>
+                                <span class="tp-breadcrumb__active"><a href="{% pageurl blog_index_page %}">Lifestyle</a></span>
+                                <span class="dvdr">/</span>
+                                <span>{{ blog_page.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area-end -->
+
+        <!-- blog-details-area-start -->
+        <section class="blog-details-area pb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Affichage de l'image principale -->
+                        <div class="tp-blog-details__thumb">
+                            {% if blog_page.main_image %}
+                                <img src="{{ blog_page.main_image.url }}" alt="{{ blog_page.main_image.alt_text }}">
+                            {% else %}
+                                <img src="assets/img/default-blog-image.jpg" alt="default image">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-10 col-lg-12">
+                        <div class="tp-blog-details__wrapper">
+                            <div class="tp-blog-details__content">
+                                <div class="tpblog__entry-wap mb-5">
+                                    <!-- Catégorie et auteur -->
+                                    <span class="cat-links"><a href="#">Lifestyle</a></span>
+                                    <span class="author-by"><a href="#">{{ blog_page.authors.all|join:", " }}</a></span>
+                                    <span class="post-data"><a href="#">{{ blog_page.date|date:"M d, Y" }}</a></span>
+                                </div>
+
+                                <!-- Titre de l'article -->
+                                <h2 class="tp-blog-details__title mb-25">{{ blog_page.title }}</h2>
+
+                                <!-- Introduction et corps de l'article -->
+                                <p>{{ blog_page.intro }}</p>
+                                <div class="tp-blog-details__body">
+                                    {{ blog_page.body|richtext }}
+                                </div>
+
+                                <!-- Citation -->
+                                <div class="tp-blog-details__quation pt-15 pb-40 text-center">
+                                    <i>“ {{ blog_page.body|truncatewords:20 }} ”</i>
+                                </div>
+
+                            </div>
+
+                            <!-- Images supplémentaires du blog (galerie) -->
+                            {% if blog_page.gallery_images.all %}
+                                <div class="tp-blog-details__img">
+                                    <div class="row">
+                                        {% for image in blog_page.gallery_images.all %}
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="tp-blog-details__img-item mb-30">
+                                                    <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Tags et partage -->
+                            <div class="postbox__tag-border mb-45">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-7 col-lg-6 col-md-12">
+                                        <div class="postbox__tag">
+                                            <div class="postbox__tag-list tagcloud">
+                                                <span>Tagged: </span>
+                                                {% for tag in blog_page.tags.all %}
+                                                    <a href="{% url 'blog:tagged' tag.name %}">{{ tag.name }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-5 col-lg-6 col-md-12">
+                                        <div class="postbox__social-tag">
+                                            <span>share:</span>
+                                            <a class="blog-d-lnkd" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            <a class="blog-d-pin" href="#"><i class="fab fa-pinterest-p"></i></a>
+                                            <a class="blog-d-fb" href="#"><i class="fab fa-facebook-f"></i></a>
+                                            <a class="blog-d-tweet" href="#"><i class="fab fa-twitter"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Liens vers les articles précédents et suivants -->
+                            <div class="tp-blog-details__post-link mb-15">
+                              <div class="row">
+                                 <div class="col-lg-6 col-md-6">
+                                       {% if blog_page.get_previous_sibling %}
+                                          <div class="tp-blog-details__post-item mb-30">
+                                             <span><i class="far fa-chevron-left"></i> Previous Post</span>
+                                             <a href="{{ blog_page.get_previous_sibling.url }}">{{ blog_page.get_previous_sibling.title }}</a>
+                                          </div>
+                                       {% else %}
+                                          <div class="tp-blog-details__post-item mb-30">
+                                             <span>Previous Post</span>
+                                             <span>No previous post</span>
+                                          </div>
+                                       {% endif %}
+                                 </div>
+                                 <div class="col-lg-6 col-md-6">
+                                       {% if blog_page.get_next_sibling %}
+                                          <div class="tp-blog-details__post-item text-end mb-30">
+                                             <span>Next Post <i class="far fa-chevron-right"></i></span>
+                                             <a href="{{ blog_page.get_next_sibling.url }}">{{ blog_page.get_next_sibling.title }}</a>
+                                          </div>
+                                       {% else %}
+                                          <div class="tp-blog-details__post-item text-end mb-30">
+                                             <span>No next post</span>
+                                          </div>
+                                       {% endif %}
+                                 </div>
+                              </div>
+</div>
+
+
+                            <!-- Auteur -->
+                            {% if blog_page.authors.all %}
+                                <div class="tp-blog-details__author d-flex mb-45">
+                                    <div class="tp-blog-details__author-img mr-30">
+                                        {% if blog_page.authors.first.author_image %}
+                                            <img src="{{ blog_page.authors.first.author_image.url }}" alt="{{ blog_page.authors.first.name }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="tp-blog-details__author-text">
+                                        <h3 class="tp-blog-details__author-title">{{ blog_page.authors.first.name }}</h3>
+                                        <p>{{ blog_page.authors.first.description }}</p>
+                                        <a href="#" class="author-btn">All Author Posts</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Section des commentaires -->
+                            <div class="postbox__comment mb-65">
+                                <h3 class="postbox__comment-title mb-35">LEAVE A COMMENT</h3>
+                                <ul>
+                                    <li>
+                                        <div class="postbox__comment-box d-flex">
+                                            <div class="postbox__comment-info">
+                                                <div class="postbox__comment-avater mr-25">
+                                                    <img src="assets/img/blog/comment-1.jpg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="postbox__comment-text">
+                                                <div class="postbox__comment-name">
+                                                    <h5>Kristin Watson</h5>
+                                                </div>
+                                                <p>The tiles are highly resistant to water and dirt...</p>
+                                                <div class="postbox__comment-reply">
+                                                    <a href="#">Leave Reply</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Formulaire pour ajouter un commentaire -->
+                            <div class="tpreview__form postbox__form">
+                                <h4 class="tpreview__form-title mb-10">LEAVE A REPLY</h4>
+                                <p>Your email address will not be published. Required fields are marked *</p>
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="tpreview__input mb-30">
+                                                <input type="text" placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="tpreview__input mb-30">
+                                                <input type="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="tpreview__input mb-5">
+                                                <textarea name="text" placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="tpreview__submit mt-25">
+                                                <button class="tp-btn">Post Comment</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- blog-details-area-end -->
+    </main>
+
+{% endblock %}

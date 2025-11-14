@@ -61,6 +61,23 @@ class BlogPage(Page):
             return gallery_item.image
         else:
             return None
+        
+
+
+class BlogPageDetail(Page):
+    parent_page_types = ['blog.BlogPage']  # Indique que cette page est une sous-page de BlogPage
+    subpage_types = []  # Pas de sous-pages pour BlogPageDetail
+
+    content_panels = Page.content_panels
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        blog_page = self.get_parent().specific  
+
+        if blog_page:
+            context['blog_page'] = blog_page
+        return context
+
 
 
 class BlogPageGalleryImage(Orderable):
@@ -113,3 +130,14 @@ class BlogTagIndexPage(Page):
         context = super().get_context(request)
         context["blogpages"] = blogpages
         return context
+
+
+class Comment(models.Model):
+    blog_page = models.ForeignKey(BlogPage, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.blog_page.title}"
