@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="confession-list">
+        <h1>Confessions</h1>
+        
+        <!-- Filters -->
+        <div class="filters">
+            <form method="get">
+                <div class="form-group">
+                    <label for="tone">Filter by Tone:</label>
+                    <select name="tone" id="tone">
+                        <option value="">All Tones</option>
+                        <option value="ironique" {% if selected_tone == 'ironique' %}selected{% endif %}>Ironique</option>
+                        <option value="rage" {% if selected_tone == 'rage' %}selected{% endif %}>Rage</option>
+                        <option value="desabuse" {% if selected_tone == 'desabuse' %}selected{% endif %}>Désabusé</option>
+                        <option value="triste" {% if selected_tone == 'triste' %}selected{% endif %}>Triste</option>
+                        <option value="neutre" {% if selected_tone == 'neutre' %}selected{% endif %}>Neutre</option>
+                        <option value="joyeux" {% if selected_tone == 'joyeux' %}selected{% endif %}>Joyeux</option>
+                        <option value="courageux" {% if selected_tone == 'courageux' %}selected{% endif %}>Courageux</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Filter by Category:</label>
+                    <select name="category" id="category">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">Apply Filters</button>
+            </form>
+        </div>
+        
+        <!-- Confessions List -->
+        <div class="confessions-container">
+            {% for confession in confessions %}
+                {% include "confession/confession_item.html" with confession=confession %}
+            {% empty %}
+                <p>No confessions found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

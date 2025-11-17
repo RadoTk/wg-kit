@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="confession-detail">
+        <h1>{{ confession.generated_title|default:"Confession" }}</h1>
+        
+        <div class="confession-header">
+            <span class="confession-pseudo">{{ confession.pseudo|default:"Anonyme" }}</span>
+            <span class="confession-date">{{ confession.created_at|date:"d M Y" }}</span>
+        </div>
+        
+        <div class="confession-content">
+            <p>{{ confession.text }}</p>
+        </div>
+        
+        {% if confession.tone %}
+            <div class="confession-tone">
+                <strong>Tone:</strong> 
+                {% if confession.tone == 'ironique' %}
+                    Ironique
+                {% elif confession.tone == 'rage' %}
+                    Rage
+                {% elif confession.tone == 'desabuse' %}
+                    Désabusé
+                {% elif confession.tone == 'triste' %}
+                    Triste
+                {% elif confession.tone == 'neutre' %}
+                    Neutre
+                {% elif confession.tone == 'joyeux' %}
+                    Joyeux
+                {% elif confession.tone == 'courageux' %}
+                    Courageux
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if confession.sarcasm_score %}
+            <div class="confession-sarcasm-score">
+                <strong>Sarcasm Score:</strong> {{ confession.sarcasm_score|floatformat:2 }}
+            </div>
+        {% endif %}
+        
+        {% if confession.generated_image %}
+            <div class="confession-image">
+                {% image confession.generated_image width-600 %}
+            </div>
+        {% endif %}
+        
+        {% if confession.tags.all %}
+            <div class="confession-tags">
+                <strong>Tags:</strong>
+                {% for tag in confession.tags.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if confession.category %}
+            <div class="confession-category">
+                <strong>Category:</strong> {{ confession.category.name }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

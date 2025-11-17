@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="confession-form">
+        <h1>Submit a Confession</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.text.id_for_label }}">Your Confession</label>
+                {{ form.text }}
+                {% if form.text.errors %}
+                    <div class="errors">{{ form.text.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.tone.id_for_label }}">Tone</label>
+                {{ form.tone }}
+                {% if form.tone.errors %}
+                    <div class="errors">{{ form.tone.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Category</label>
+                {{ form.category }}
+                {% if form.category.errors %}
+                    <div class="errors">{{ form.category.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Submit Confession</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
