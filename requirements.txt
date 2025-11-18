@@ -88,3 +88,5 @@ willow==1.11.0
     # via wagtail
 
 django-htmx>=1.26.0
+
+lucide==1.1.3

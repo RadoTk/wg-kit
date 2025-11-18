@@ -1,0 +1,88 @@
+@use '../vars.scss' as *;
+
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: $BORDER_SM solid rgba(77, 77, 77, 0.1);
+  background: #ffffff;
+  padding-right: $SPACE_9;
+  padding-left: $SPACE_9;
+  height: 88px;}
+
+.nav-left,
+.nav-right {
+  display: inline-flex;
+  align-items: center;
+  column-gap: $SPACE_3;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  column-gap: $SPACE_2;
+  padding: $SPACE_3;
+  line-height: 17px;
+  letter-spacing: 0;
+  color: $TEXT_COLOR;
+  font-family: $FONT_SANS;
+  font-size: $FS_14;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-link.is-accent {
+  color: $COLOR_ERROR_BORDER;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  column-gap: $SPACE_2;
+  border-radius: $RADIUS_PILL;
+  background: $COLOR_PRIMARY;
+  padding: $SPACE_3 $SPACE_6;
+  color: $MUTED_COLOR;
+  font-family: $FONT_SANS;
+  font-size: $FS_14;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  column-gap: $SPACE_2;
+  color: $TEXT_COLOR;
+  text-decoration: none;
+}
+
+.nav-brand-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: $RADIUS_PILL;
+  background: $COLOR_PRIMARY;
+  flex-shrink: 0;
+}
+
+.nav-brand-text {
+  font-size: $FS_18;
+  font-weight: 700;
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  padding: $SPACE_3;
+  color: $TEXT_COLOR;
+}
+
+.icon-angle {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+}
