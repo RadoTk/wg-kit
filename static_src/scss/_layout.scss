@@ -1,0 +1,22 @@
+@use './vars.scss' as *;
+
+@mixin at-sm { @media (min-width: $BREAKPOINT_SM) { @content; } }
+@mixin at-md { @media (min-width: $BREAKPOINT_MD) { @content; } }
+@mixin at-lg { @media (min-width: $BREAKPOINT_LG) { @content; } }
+@mixin at-xl { @media (min-width: $BREAKPOINT_XL) { @content; } }
+@mixin at-xxl { @media (min-width: $BREAKPOINT_XXL) { @content; } }
+
+.container {
+  width: 100%;
+  margin-inline: auto;
+  @include at-sm { max-width: $BREAKPOINT_SM; }
+  @include at-md { max-width: $BREAKPOINT_MD; }
+  @include at-lg { max-width: $BREAKPOINT_LG; }
+  @include at-xl { max-width: $BREAKPOINT_XL; }
+  @include at-xxl { max-width: $BREAKPOINT_XXL; }
+}
+
+.container-fluid {
+  width: 100%;
+  margin-inline: auto;
+}

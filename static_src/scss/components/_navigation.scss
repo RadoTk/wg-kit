@@ -1,11 +1,9 @@
 @use '../vars.scss' as *;
 
-
 .site-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding-right: $SPACE_9;
   padding-left: $SPACE_9;
   height: 88px;}
@@ -22,11 +20,7 @@
   align-items: center;
   column-gap: $SPACE_2;
   padding: $SPACE_3;
-  line-height: 17px;
-  letter-spacing: 0;
-  color: $TEXT_COLOR;
-  font-family: $FONT_SANS;
-  font-size: $FS_14;
+  font-size: 1.4rem;
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
@@ -45,7 +39,7 @@
   padding: $SPACE_3 $SPACE_6;
   color: $MUTED_COLOR;
   font-family: $FONT_SANS;
-  font-size: $FS_14;
+  font-size: 1.4rem;
   font-weight: 700;
   text-transform: uppercase;
   text-decoration: none;
@@ -65,11 +59,6 @@
   border-radius: $RADIUS_PILL;
   background: $COLOR_PRIMARY;
   flex-shrink: 0;
-}
-
-.nav-brand-text {
-  font-size: $FS_18;
-  font-weight: 700;
 }
 
 .nav-icon {
