@@ -1,11 +1,9 @@
 @use './vars.scss' as *;
-
 @use './reset.scss';
-// @use './components/buttons.scss';
-// @use './components/cards.scss';
-// @use './components/badges.scss';
-// @use './components/alerts.scss';
-// @use './components/inputs.scss';
-// @use './components/design-system.scss';
-@use './components/navigation.scss';
-@use './font.scss' as font;
+
+@use './font.scss';
+@use './layout.scss'; 
+
+
+@use './components/header/navigation.scss';
+

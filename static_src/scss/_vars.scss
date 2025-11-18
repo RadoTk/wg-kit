@@ -7,7 +7,7 @@ $BREAKPOINT_XXL: 1536px;
 
 
 $FONT_SANS: "Montserrat", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
-$FONT_HEADING: "Oswald", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+$FONT_HEADING: $FONT_SANS;
 
 $font-sans: $FONT_SANS;
 $font-heading: $FONT_HEADING;
@@ -30,6 +30,7 @@ $PALETTE_BLUE_LIGHT_BG: #dbeafe;
 
 $COLOR_PRIMARY: #ffd400;
 $COLOR_SECONDARY: #ca6f4a;
+$COLOR_TERNARY: #E4947C;
 $COLOR_ACCENT: #ac91ed;
 $COLOR_TERTIARY: #5ea3d0;
 $COLOR_NEUTRAL_BG: $PALETTE_CREAM_BG;

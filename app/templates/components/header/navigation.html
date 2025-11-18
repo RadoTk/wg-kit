@@ -1,0 +1,58 @@
+{% load static %}
+<nav class="main-navigation container" role="navigation" aria-label="Menu principal">
+  <div class="main-navigation__left">
+    <ul class="main-navigation__list" role="menubar">
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__link">
+          <span class="main-navigation__link-text">Chien</span>
+          <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__link">
+          <span class="main-navigation__link-text">Chat</span>
+          <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__link">
+          <span class="main-navigation__link-text">Quizz produit</span>
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__button">Ouvrir un compte</a>
+      </li>
+    </ul>
+  </div>
+
+  <a href="/" class="main-navigation__brand">
+    <img src="{% static 'img/main_logo.png' %}" alt="Accueil - Nom de la marque" class="main-navigation__logo">
+  </a>
+
+  <div class="main-navigation__right">
+    <ul class="main-navigation__list" role="menubar">
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__link">
+           <span class="main-navigation__link-text">A Propos</span>
+          <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" class="main-navigation__link">
+           <span class="main-navigation__link-text">Conseils</span>
+          <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" aria-label="Mon compte" class="main-navigation__icon">
+          {% lucide "user" %}
+        </a>
+      </li>
+      <li class="main-navigation__item" role="menuitem">
+        <a href="#" aria-label="Panier" class="main-navigation__icon">
+          {% lucide "shopping-cart" %}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

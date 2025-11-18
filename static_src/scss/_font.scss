@@ -17,8 +17,9 @@
   font-family: $FONT_SANS;
   font-size: sz($sizeKey);
   font-weight: wt($weightKey);
-  @if $lh != null { line-height: $lh; }
   letter-spacing: ls($lsKey);
+  text-decoration: none;
+  @if $lh != null { line-height: $lh; }
   @if $transform != none { text-transform: $transform; }
 }
 
@@ -26,8 +27,9 @@
   font-family: $FONT_HEADING;
   font-size: sz($sizeKey);
   font-weight: wt($weightKey);
-  @if $lh != null { line-height: $lh; }
   letter-spacing: ls($lsKey);
+  text-decoration: none;
+  @if $lh != null { line-height: $lh; }
   @if $transform != none { text-transform: $transform; }
 }
 

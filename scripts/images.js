@@ -18,22 +18,44 @@ if (!fs.existsSync(outputDirectory)) {
 // Get all files in the input directory
 const files = fs.readdirSync(inputDirectory);
 
-// Each file and apply compression
+// Process each file and keep original extension/format
 files.forEach((file) => {
-  if (file.match(/\.(jpg|jpeg|png|gif)$/)) {
-    sharp(`${inputDirectory}/${file}`)
-      .resize(maxWidth, maxHeight, {
-        fit: 'inside',
-        withoutEnlargement: true,
-      })
-      .jpeg({ quality: 80, progressive: true }) // Progressive JPEGs
-      .webp({ quality: 80 }) // Convert to WebP format
-      .toFile(`${outputDirectory}/${file}`, (err, info) => {
-        if (err) {
-          console.error(`Error processing ${file}: ${err}`);
-        } else {
-          console.log(`Advanced compression applied to ${file}`);
-        }
-      });
+  const ext = path.extname(file).toLowerCase();
+  const inputPath = path.join(inputDirectory, file);
+  const outputPath = path.join(outputDirectory, file);
+
+  if (!ext.match(/\.(jpg|jpeg|png|gif)$/)) {
+    return;
   }
+
+  // GIFs: copy as-is (sharp cannot reliably write animated GIFs)
+  if (ext === '.gif') {
+    try {
+      fs.copyFileSync(inputPath, outputPath);
+      console.log(`Copied GIF without processing: ${file}`);
+    } catch (err) {
+      console.error(`Error copying ${file}: ${err}`);
+    }
+    return;
+  }
+
+  const pipeline = sharp(inputPath).resize(maxWidth, maxHeight, {
+    fit: 'inside',
+    withoutEnlargement: true,
+  });
+
+  // Keep format consistent with input extension
+  if (ext === '.jpg' || ext === '.jpeg') {
+    pipeline.jpeg({ quality: 80, progressive: true });
+  } else if (ext === '.png') {
+    pipeline.png({ compressionLevel: 9 });
+  }
+
+  pipeline.toFile(outputPath, (err) => {
+    if (err) {
+      console.error(`Error processing ${file}: ${err}`);
+    } else {
+      console.log(`Optimised ${file} -> ${outputPath}`);
+    }
+  });
 });

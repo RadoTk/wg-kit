@@ -1,0 +1,73 @@
+@use "../../vars.scss" as *;
+@use "../../font" as font;
+
+@mixin nav-inline-flex-group {
+  display: inline-flex;
+  align-items: center;
+  column-gap: $SPACE_5;
+}
+@mixin nav-text {
+  color: $text-color;
+  @include font.labelUpper(lg, bold, 1.2rem, md);
+}
+
+.main-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  @include nav-text();
+  
+  &__left,
+  &__right,
+  &__list,
+  &__button,
+  &__brand,
+  &__icon,
+  &__link {
+    @include nav-inline-flex-group;
+
+    &.is-accent {
+      color: $COLOR_ERROR_BORDER;
+    }
+  }
+  &__link {
+    column-gap: 4px;
+    &.is-accent {
+      color: $COLOR_ERROR_BORDER;
+    }
+  }
+
+  &__button {
+    border-radius: $RADIUS_PILL;
+    background: $COLOR_PRIMARY;
+    padding: $SPACE_3 $SPACE_6;
+  }
+
+  &__logo {
+    height: 54px;
+  }
+
+  &__brand-badge {
+    width: 58px;
+    height: 58px;
+  }
+
+  &__icon {
+    &--angle {
+      flex-shrink: 0;
+    }
+  }
+
+  &__item {
+    list-style: none;
+  }
+}
+.header__promo {
+  color: white;  
+  font-family: $FONT_HEADING;
+  font-size: 16px;
+  background: $COLOR_TERNARY;
+  padding: $SPACE_3 0;
+  text-align: center;
+}
