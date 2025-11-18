@@ -6,14 +6,15 @@
   "scripts": {
     "styles": "sass static_src/scss:static_compiled/css",
     "styles:prod": "concurrently \"npm run styles -- --style=compressed\"",
-    "styles:watch": "concurrently \"npm run styles -- --style=expanded --watch\"",
+    "styles:watch": "concurrently \"npm run styles -- --style=expanded --watch\" \"npm run collectstatic:watch\"",
     "scripts": "esbuild --bundle --sourcemap static_src/js/app.js --outfile=static_compiled/js/app.js",
     "scripts:prod": "concurrently \"npm run scripts -- --minify\"",
     "scripts:watch": "concurrently \"npm run scripts -- --watch\"",
     "images": "node scripts/images.js",
     "clean": "rm -rf static_compiled",
     "build": "concurrently \"npm run styles:prod\" \"npm run scripts:prod\" \"npm run images\"",
-    "start": "concurrently \"npm run clean\" \"npm run styles:watch\" \"npm run scripts:watch\" \"npm run images\""
+    "start": "concurrently \"npm run clean\" \"npm run styles:watch\" \"npm run scripts:watch\" \"npm run images\"",
+    "collectstatic:watch": "node scripts/collectstatic-watch.js"
   },
   "repository": {
     "type": "git",
