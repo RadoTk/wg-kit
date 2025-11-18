@@ -1,0 +1,72 @@
+<section id="design-system-overview">
+  <div class="ds-header">
+    <div class="brand">
+      <div class="brand-badge"></div>
+      <div class="brand-text">
+        <div class="brand-title">Design System</div>
+        <div class="brand-sub">Dogs & Maisons - Inspiré de Figma</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="#">Export</a>
+      <a class="btn is-primary" href="#">Utiliser</a>
+    </div>
+  </div>
+
+  <div class="ds-tabs">
+    <a class="tab is-active" href="#design-system-overview">Vue d'ensemble</a>
+    <a class="tab" href="#ds-palette">Couleurs</a>
+    <a class="tab" href="#ds-components">Composants</a>
+    <a class="tab" href="#typography">Typographie</a>
+    <a class="tab" href="#code">Code</a>
+  </div>
+
+  <div class="ds-hero">
+    <div class="title">
+      <h2>Design System Complet pour</h2>
+      <h2>Dogs & Maisons</h2>
+    </div>
+    <div class="lead">
+      <p>Un système de design moderne, cohérent et facile à utiliser, inspiré de votre page d'accueil Figma. Parfait pour créer des expériences web pour animaux de compagnie.</p>
+    </div>
+    <div class="ctas">
+      <a class="btn is-primary" href="#ds-components">Découvrir les Composants</a>
+      <a class="btn is-secondary" href="#documentation">Voir la Documentation</a>
+    </div>
+  </div>
+
+  <div class="ds-section" id="ds-features">
+    <div class="sectionHeader">
+      <h3>Caractéristiques Principales</h3>
+      <div class="sub"><p>Un design system pensé pour la simplicité et la cohérence</p></div>
+    </div>
+    <div class="grid">
+      {% include "components/feature-cards.html" %}
+    </div>
+  </div>
+
+  <div class="ds-section" id="ds-palette">
+    <div class="sectionHeader">
+      <h3>Palette de Couleurs</h3>
+      <div class="sub"><p>Inspirée de votre design Dogs & Maisons</p></div>
+    </div>
+    {% include "components/palette.html" %}
+  </div>
+
+  <div class="ds-components-preview" id="ds-components">
+    <div class="sectionHeader3">
+      <h3>Aperçu des Composants</h3>
+      <div class="sub"><p>Boutons, cartes, et plus encore</p></div>
+    </div>
+    <div class="cards">
+      {% include "components/buttons.html" %}
+      {% include "components/badges_alerts.html" %}
+    </div>
+  </div>
+
+  <div class="ds-bottom-cta">
+    <p>Prêt à Utiliser le Design System ?</p>
+    <div class="sub"><p>Explorez tous les composants, tokens et documentation pour commencer à créer des interfaces magnifiques.</p></div>
+    <a class="btn is-primary" href="#start">Commencer Maintenant</a>
+  </div>
+</section>

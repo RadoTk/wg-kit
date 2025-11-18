@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     "app.home",
     "app.portfolio",
     "app.search",
+    "app.advice",
+    
+    # "app.confession",
     # "app.blog",
     # "app.agenda",
     # "app.confession",
