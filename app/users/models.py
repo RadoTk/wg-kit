@@ -1,54 +1,69 @@
-import logging
-from django.db import models, transaction
+from django.db import models
 from django.contrib.auth.models import User
+from app.orders.models import Country
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from app.orders.models import Country
-from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel
 
-logger = logging.getLogger(__name__)
 
 
 class UserProfile(models.Model):
-    """
-    Modèle représentant le profil utilisateur.
-    Ce modèle permet d'associer un profil personnalisé à chaque utilisateur.
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
-    @why: Permet d’étendre le modèle User avec des informations supplémentaires.
-    @how: Utilise une relation OneToOne avec le modèle User.
-    """
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='profile',
-        help_text="L'utilisateur associé à ce profil"
+    phone_number = models.CharField(max_length=20, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    gender = models.CharField(
+        choices=[("M", "Homme"), ("F", "Femme"), ("O", "Autre")],
+        max_length=1,
+        blank=True
     )
-    address = models.CharField(max_length=255, blank=True, help_text="Adresse de l'utilisateur")
-    postal_code = models.CharField(max_length=16, blank=True, help_text="Code postal de l'utilisateur")
-    country = models.ForeignKey(
-        Country, on_delete=models.SET_NULL, null=True, blank=True,
-        help_text="Pays de l'utilisateur"
+
+    default_billing_address = models.ForeignKey(
+        "users.Address",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="billing_profiles",
     )
-    phone_number = models.CharField(max_length=20, blank=True, help_text="Numéro de téléphone de l'utilisateur")
+
+    default_shipping_address = models.ForeignKey(
+        "users.Address",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="shipping_profiles",
+    )
 
     def __str__(self):
-        """Retourne une représentation lisible du profil."""
         return f"Profil de {self.user.username}"
 
 
-@receiver(post_save, sender=User)
-def manage_user_profile(sender, instance, created, **kwargs):
-    """
-    Crée ou met à jour automatiquement le profil utilisateur.
 
-    @why: Assure qu’un User a toujours un profil.
-    @how: Création automatique en cas de nouvel utilisateur.
-    """
-    try:
-        if created:
-            UserProfile.objects.create(user=instance)
-        else:
-            instance.profile.save()
-    except Exception as e:
-        logger.error(f"[UserProfile] Échec lors de la gestion du profil de {instance.username}: {str(e)}")
+class Address(models.Model):
+    ADDRESS_TYPES = [
+        ("shipping", "Adresse de livraison"),
+        ("billing", "Adresse de facturation"),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    address_type = models.CharField(max_length=20, choices=ADDRESS_TYPES)
+
+    full_name = models.CharField(max_length=255)
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    postal_code = models.CharField(max_length=20)
+    city = models.CharField(max_length=100)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
+
+    phone_number = models.CharField(max_length=20, blank=True)
+    is_default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.address_type}"
+
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)

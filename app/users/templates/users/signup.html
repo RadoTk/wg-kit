@@ -1,15 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="signup-page">
-    <h1>{{ page.title }}</h1>
-    <p>{{ page.intro }}</p>
-    
+<div class="auth-container">
+    <h2>Créer un compte</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <form method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">S'inscrire</button>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="field-errors">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit">S'inscrire</button>
     </form>
-    <p>Déjà un compte ? <a href="{% url 'users:login' %}">Se connecter</a></p>
-  </div>
+
+    <p class="switch">
+        Vous avez déjà un compte ? <a href="{% url 'users:login' %}">Se connecter</a>
+    </p>
+</div>
+
+<style>
+.auth-container {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+}
+h2 { text-align: center; }
+button {
+    width: 100%;
+    padding: .7rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+.switch { text-align: center; margin-top: 1rem; }
+.messages li.error { background: #ffdddd; padding: .5rem; }
+.field-errors { color: red; margin: 0.2rem 0 0.5rem 0; list-style: none; padding: 0; }
+.field-errors li { margin-left: 0; }
+.form-group { margin-bottom: 1rem; }
+</style>
 {% endblock %}
