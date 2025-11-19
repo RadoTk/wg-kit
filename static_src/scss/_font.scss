@@ -43,7 +43,7 @@
 -------------------------------------------------------------------------------------*/
 
 html {
-  font-size : 14px; 
+  font-size : 16px; 
 }
 
 h1 {
@@ -93,26 +93,26 @@ strong {
 a {
   color: $text-color;
   text-decoration: underline;
-  @include textSans(sm, semibold, 1.4rem, none);
+  @include textSans(md, semibold, 1.4rem, none);
 }
 
 label {
   color: $text-color;
-  @include labelUpper(sm, semibold, 1.4rem);
+  @include labelUpper(md, semibold, 1.4rem);
 }
 
 button {
-  @include labelUpper(sm, bold, 1.4rem);
+  @include labelUpper(md, bold, 1.4rem);
 }
 
 ul,
 ol,
 li {
   color: $text-color;
-  @include textSans(sm, regular, 1.2rem, none);
+  @include textSans(md, regular, 1.2rem, none);
 }
 
 blockquote {
   color: $muted-color;
-  @include textSans(sm, regular, 1.2rem, sm);
+  @include textSans(md, regular, 1.2rem, sm);
 }

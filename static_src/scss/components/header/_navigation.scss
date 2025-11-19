@@ -1,5 +1,5 @@
 @use "../../vars.scss" as *;
-@use "../../font" as font;
+@use "../../font.scss" as font;
 
 @mixin nav-inline-flex-group {
   display: inline-flex;

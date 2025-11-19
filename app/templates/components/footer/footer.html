@@ -1,26 +1,79 @@
-{% load navigation_tags %}
+{% load static %}
 
-<footer>
-    <div class="container-fluid">
-        <p>Built with Wagtail</p>
+<footer class="footer container">
+    <div class="footer__section-container">
+        <div class="footer__section">
+            <h3 class="footer__title">INFOS PRATIQUES</h3>
+            <ul class="footer__links">
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">Boutique</a>
+                </li>
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">A propos</a>
+                </li>
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">Nos engagements</a>
+                </li>
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">Contact</a>
+                </li>
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">Mentions légales</a>
+                </li>
+                <li class="footer__link-item">
+                    <a href="#" class="footer__link">CGV</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="footer__social-media">
+            <li class="footer__social-media-item">
+                <a href="#" class="footer__social-icon footer__social-icon--instagram" aria-label="Instagram"></a>
+            </li>
+            <li class="footer__social-media-item">
+                <a href="#" class="footer__social-icon footer__social-icon--tiktok" aria-label="TikTok"></a>
+            </li>
+            <li class="footer__social-media-item">
+                <a href="#" class="footer__social-icon footer__social-icon--facebook" aria-label="Facebook"></a>
+            </li>
+        </ul>
+    </div>
 
-        {% with linkedin_url=settings.base.NavigationSettings.linkedin_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
-            {% if linkedin_url or github_url or mastodon_url %}
-                <p>
-                    Follow me on:
-                    {% if github_url %}
-                        <a href="{{ github_url }}">GitHub</a>
-                    {% endif %}
-                    {% if linkedin_url %}
-                        <a href="{{ linkedin_url }}">LinkedIn</a>
-                    {% endif %}
-                    {% if mastodon_url %}
-                        <a href="{{ mastodon_url }}">Mastodon</a>
-                    {% endif %}
-                </p>
-            {% endif %}
-        {% endwith %}
+    <div class="footer__brand">
+         <img src="{% static 'img/footer_logo.png' %}" alt="Accueil - Nom de la marque" class="footer__logo">
+    </div>
 
-        {% get_footer_text %}
+    <div class="footer__newsletter">
+        <div class="footer__newsletter-text">
+            <h3 class="footer__title">REJOIGNEZ NOTRE MEUTE</h3>
+            <p class="footer__subtitle">Recevez nos conseils et offres exclusives.</p>
+        </div>
+        <div class="footer__newsletter-form">
+            <ul class="footer__newsletter-options">
+                <li class="footer__newsletter-option">
+                    <label class="footer__newsletter-option-label">
+                        <span class="footer__newsletter-option-input"></span>
+                        <span class="footer__newsletter-option-text">Chien</span>
+                    </label>
+                </li>
+                <li class="footer__newsletter-option">
+                    <label class="footer__newsletter-option-label">
+                        <span class="footer__newsletter-option-input"></span>
+                        <span class="footer__newsletter-option-text">Chat</span>
+                    </label>
+                </li>
+                <li class="footer__newsletter-option">
+                    <label class="footer__newsletter-option-label">
+                        <span class="footer__newsletter-option-input"></span>
+                        <span class="footer__newsletter-option-text">Les deux</span>
+                    </label>
+                </li>
+            </ul>
+            <div class="footer__newsletter-input-container">
+                <input type="email" class="footer__newsletter-input" placeholder="Votre mail" />
+            </div>
+        </div>
+        <button type="button" class="footer__button footer__button--primary">
+            <span class="footer__button-text">S’INSCRIR À LA NEWSLETTER</span>
+        </button>
     </div>
 </footer>
