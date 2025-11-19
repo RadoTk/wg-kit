@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 PROJECT_DIR = Path.resolve(Path(__file__).parent.parent)
 BASE_DIR = Path.resolve(PROJECT_DIR.parent)
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     "app.store",
     "channels",
     "app.page_links",
+    "app.animals",
 
     "wagtailfontawesomesvg",
     "wagtail.contrib.forms",
@@ -64,6 +67,11 @@ INSTALLED_APPS = [
 ]
 
 CART_SESSION_ID = 'cart'
+
+
+LOGIN_REDIRECT_URL = reverse_lazy('users:profile_edit')
+
+
 
 
 MIDDLEWARE = [

@@ -19,6 +19,8 @@ urlpatterns = [
     path("orders/", include("app.orders.urls", namespace='orders')),
     path('page_links/', include('app.page_links.urls', namespace='page_links')),
     path('cart/', include('app.cart.urls', namespace='cart')),
+    path('animals/', include('app.animals.urls', namespace='animals')),
+
 ]
 
 
