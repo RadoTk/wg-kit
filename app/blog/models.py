@@ -11,9 +11,9 @@ from wagtail.snippets.models import register_snippet
 
 
 class BlogIndexPage(Page):
-    intro = RichTextField(blank=True)
+    introduction = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + [FieldPanel("intro")]
+    content_panels = Page.content_panels + [FieldPanel("introduction")]
 
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
@@ -30,14 +30,17 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(Page):
+    parent_page_types = ['blog.BlogIndexPage']
+    subpage_types = ['blog.BlogPageDetail']
+
     date = models.DateField("Post date")
-    intro = models.CharField(max_length=250)
+    introduction = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     authors = ParentalManyToManyField("blog.Author", blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     search_fields = Page.search_fields + [
-        index.SearchField("intro"),
+        index.SearchField("introduction"),
         index.SearchField("body"),
     ]
 
@@ -50,7 +53,7 @@ class BlogPage(Page):
             ],
             heading="Blog information",
         ),
-        FieldPanel("intro"),
+        FieldPanel("introduction"),
         FieldPanel("body"),
         InlinePanel("gallery_images", label="Gallery images"),
     ]
@@ -65,8 +68,8 @@ class BlogPage(Page):
 
 
 class BlogPageDetail(Page):
-    parent_page_types = ['blog.BlogPage']  # Indique que cette page est une sous-page de BlogPage
-    subpage_types = []  # Pas de sous-pages pour BlogPageDetail
+    parent_page_types = ['blog.BlogPage'] 
+    subpage_types = []  
 
     content_panels = Page.content_panels
 
