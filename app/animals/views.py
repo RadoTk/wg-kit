@@ -24,7 +24,7 @@ class AnimalCreateView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = AnimalForm(request.POST, request.FILES)  # important ici
+        form = AnimalForm(request.POST, request.FILES)  
         if form.is_valid():
             animal = form.save(commit=False)
             animal.owner = request.user
@@ -37,7 +37,6 @@ class AnimalCreateView(View):
 @login_required
 def animal_detail(request, pk):
     animal = get_object_or_404(Animal, pk=pk)
-    # Security: only owner or staff can view sensitive medical info
     can_view_sensitive = (animal.owner == request.user) or request.user.is_staff
     return render(request, 'animals/animal_detail.html', {'animal': animal, 'can_view_sensitive': can_view_sensitive})
 

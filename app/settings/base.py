@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -245,3 +247,8 @@ WAGTAILDOCS_EXTENSIONS = [
 # and it is recommended to increase this from Django’s default of 1000,
 # as particularly complex page models can exceed this limit within Wagtail’s page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
