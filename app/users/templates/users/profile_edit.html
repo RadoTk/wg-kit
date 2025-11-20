@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Modifier votre profil</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Informations utilisateur</h3>
+        {% for field in user_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="field-errors">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <h3>Profil</h3>
+        {% for field in profile_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="field-errors">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+</div>
+
+<style>
+.auth-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+}
+h2, h3 { text-align: center; }
+button {
+    width: 100%;
+    padding: .7rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+.messages li.error { background: #ffdddd; padding: .5rem; }
+.field-errors { color: red; margin: 0.2rem 0 0.5rem 0; list-style: none; padding: 0; }
+.field-errors li { margin-left: 0; }
+.form-group { margin-bottom: 1rem; }
+</style>
+{% endblock %}

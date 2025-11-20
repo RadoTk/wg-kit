@@ -15,11 +15,7 @@ def validate_positive(value):
 
 
 class Animal(models.Model):
-    """Model principal pour un animal.
-    - noms et conventions en anglais pour la compatibilité et la lisibilité du code.
-    - use `related_name` explicit pour éviter collisions.
-    """
-
+    
     SEX_CHOICES = [
         ("M", "Mâle"),
         ("F", "Femelle"),

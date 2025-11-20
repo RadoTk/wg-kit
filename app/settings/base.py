@@ -14,6 +14,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
+
 PROJECT_DIR = Path.resolve(Path(__file__).parent.parent)
 BASE_DIR = Path.resolve(PROJECT_DIR.parent)
 
@@ -37,6 +40,9 @@ INSTALLED_APPS = [
     "app.confession",
     # 'app.contact',
     "app.animals",
+    # "app.users",
+    'app.users.apps.UsersConfig',
+
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -74,6 +80,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "app.urls"
+
+LOGIN_REDIRECT_URL = reverse_lazy('users:profile_edit')
+
 
 TEMPLATES = [
     {
