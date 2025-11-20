@@ -14,7 +14,10 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     # Remove if not required
     path("style-guide/", include("app.style_guide.urls")),
-    # path("confessions/", include("app.confession.urls")),
+    path("confessions/", include("app.confession.urls")),
+    path("confessions/", include("app.confession.urls")),
+    path("animals/", include("app.animals.urls")),
+
 ]
 
 

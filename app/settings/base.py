@@ -32,10 +32,11 @@ INSTALLED_APPS = [
     "app.advice",
     
     # "app.confession",
-    # "app.blog",
+    "app.blog",
     # "app.agenda",
-    # "app.confession",
+    "app.confession",
     # 'app.contact',
+    "app.animals",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
