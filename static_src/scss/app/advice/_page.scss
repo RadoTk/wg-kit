@@ -1,0 +1,110 @@
+@use '../../vars.scss' as *;
+
+// Base styles for advice pages
+.advice-page {
+  &__content {
+    // Base content styles for advice pages
+  }
+}
+
+// Single advice article page
+.advice-article {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  &__header {
+    // Header section containing title and meta info
+  }
+
+  &__title {
+    font-size: 28px;
+    color: #695135;
+    margin: 0 0 12px;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  &__image {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__excerpt {
+    margin: 16px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+
+    p {
+      margin: 0 0 16px;
+    }
+  }
+
+  &__body {
+    // Styles for the main content body
+    // This handles the richtext content
+
+    // Ensure proper styling of elements within the richtext field
+    p {
+      margin: 0 0 16px;
+      line-height: 1.6;
+    }
+
+    h2, h3, h4 {
+      margin: 24px 0 12px;
+      color: #333;
+    }
+
+    ul, ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__footer {
+    margin-top: 24px;
+  }
+}
+
+// Meta information styles
+.advice-meta {
+  &__category {
+    color: #2d2d2d;
+    background: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__date {
+    color: #2d2d2d;
+    font-size: 12px;
+  }
+}
+

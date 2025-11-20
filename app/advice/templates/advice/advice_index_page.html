@@ -1,72 +1,75 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block extra_css %}
-<style>
-  .advice-nav{display:flex;gap:12px;justify-content:center;padding:12px}
-  .advice-nav a{color:#d94f0b;text-transform:uppercase;font-weight:700}
-  .search{display:flex;gap:12px;justify-content:center;padding:18px}
-  .hero{background:#fee6bb40;padding:34px}
-  .hero h2,.list h2{text-align:center;color:#695135;text-transform:uppercase}
-  .cards{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
-  .card{width:408px;display:flex;flex-direction:column;gap:12px}
-  .card h3{font-size:16px;font-weight:600;margin:0}
-  .card p{font-size:16px;margin:0}
-  .badge{display:flex;align-items:center;gap:6px}
-  .btn{background:#ffd012;border-radius:100px;padding:6px 14px;text-transform:uppercase;font-size:12px}
-  .small-card{width:300px}
-</style>
-{% endblock %}
+
 
 {% block content %}
-  <nav class="advice-nav">
-    <a href="?category=chien">Chien</a>
-    <a href="?category=chat">Chat</a>
-    <a href="?category=bon_a_savoir">Bon à savoir</a>
-    <a href="?category=guide">Guide</a>
+  <nav class="advice-nav" aria-label="Catégories d'articles">
+    <a href="?category=chien" class="advice-nav__item">Chien</a>
+    <a href="?category=chat" class="advice-nav__item">Chat</a>
+    <a href="?category=bon_a_savoir" class="advice-nav__item">Bon à savoir</a>
+    <a href="?category=guide" class="advice-nav__item">Guide</a>
   </nav>
 
-  <form method="get" class="search">
-    <input type="text" name="q" value="{{ q }}" placeholder="Rechercher un article" />
-    {% if category %}<input type="hidden" name="category" value="{{ category }}" />{% endif %}
-    <button type="submit" class="btn">Rechercher</button>
+  <form method="get" class="advice-search" role="search">
+    <input type="text"
+           name="q"
+           value="{{ q }}"
+           placeholder="Rechercher un article"
+           class="advice-search__input" />
+    {% if category %}
+      <input type="hidden" name="category" value="{{ category }}" />
+    {% endif %}
+    <button type="submit" class="advice-search__submit advice-btn">Rechercher</button>
   </form>
 
-  <section class="hero">
-    <h2>Article à la une</h2>
-    <div class="cards">
+  <section class="advice-featured">
+    <h2 class="advice-featured__title">Article à la une</h2>
+    <div class="advice-featured__container advice-cards">
       {% for article in featured %}
-        <article class="card">
-          {% if article.listing_image %}{% image article.listing_image fill-408x272 %}{% endif %}
-          <div class="badge">
-            <span>{{ article.get_category_display }}</span>
-            <span>{{ article.date }}</span>
-            <a href="{{ article.url }}" class="btn">Lire l’article</a>
+        <article class="advice-card advice-card--featured">
+          {% if article.listing_image %}
+            <div class="advice-card__image">
+              {% image article.listing_image fill-408x272 class="advice-card__img" %}
+            </div>
+          {% endif %}
+          <div class="advice-card__meta advice-badge">
+            <span class="advice-badge__category">{{ article.get_category_display }}</span>
+            <span class="advice-badge__date">{{ article.date }}</span>
+            <a href="{{ article.url }}" class="advice-btn advice-btn--secondary">Lire l’article</a>
           </div>
-          <h3>{{ article.title }}</h3>
-          {% if article.excerpt %}<p>{{ article.excerpt }}</p>{% endif %}
+          <h3 class="advice-card__title">{{ article.title }}</h3>
+          {% if article.excerpt %}
+            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
+          {% endif %}
         </article>
       {% empty %}
-        <p>Aucun article en vedette.</p>
+        <p class="advice-featured__empty">Aucun article en vedette.</p>
       {% endfor %}
     </div>
   </section>
 
-  <section class="list" style="padding:34px 0">
-    <h2>Tous les articles</h2>
-    <div class="cards">
+  <section class="advice-list" aria-labelledby="advice-list-title">
+    <h2 id="advice-list-title" class="advice-list__title">Tous les articles</h2>
+    <div class="advice-list__container advice-cards">
       {% for article in articles %}
-        <article class="card small-card">
-          {% if article.listing_image %}{% image article.listing_image fill-300x200 %}{% endif %}
-          <div class="badge">
-            <span>{{ article.get_category_display }}</span>
+        <article class="advice-card advice-card--small">
+          {% if article.listing_image %}
+            <div class="advice-card__image">
+              {% image article.listing_image fill-300x200 class="advice-card__img" %}
+            </div>
+          {% endif %}
+          <div class="advice-card__meta advice-badge">
+            <span class="advice-badge__category">{{ article.get_category_display }}</span>
           </div>
-          <h3>{{ article.title }}</h3>
-          {% if article.excerpt %}<p>{{ article.excerpt }}</p>{% endif %}
-          <a href="{{ article.url }}" class="btn">Lire l’article</a>
+          <h3 class="advice-card__title">{{ article.title }}</h3>
+          {% if article.excerpt %}
+            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
+          {% endif %}
+          <a href="{{ article.url }}" class="advice-card__link advice-btn advice-btn--secondary">Lire l’article</a>
         </article>
       {% empty %}
-        <p>Aucun article.</p>
+        <p class="advice-list__empty">Aucun article.</p>
       {% endfor %}
     </div>
   </section>

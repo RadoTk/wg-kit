@@ -1,4 +1,4 @@
-@use './vars.scss' as *;
+@use "./vars.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@700&display=swap");
 
 @function sz($k) {
@@ -13,37 +13,56 @@
   @return map-get($FONT_WEIGHTS, $k);
 }
 
-@mixin textSans($sizeKey, $weightKey: regular, $lh: null, $lsKey: none, $transform: none) {
+@mixin textSans(
+  $sizeKey,
+  $weightKey: regular,
+  $lh: null,
+  $lsKey: none,
+  $transform: none
+) {
   font-family: $FONT_SANS;
   font-size: sz($sizeKey);
   font-weight: wt($weightKey);
   letter-spacing: ls($lsKey);
   text-decoration: none;
-  @if $lh != null { line-height: $lh; }
-  @if $transform != none { text-transform: $transform; }
+  @if $lh != null {
+    line-height: $lh;
+  }
+  @if $transform != none {
+    text-transform: $transform;
+  }
 }
 
-@mixin textHeading($sizeKey, $weightKey: bold, $lh: null, $lsKey: none, $transform: uppercase) {
+@mixin textHeading(
+  $sizeKey,
+  $weightKey: bold,
+  $lh: null,
+  $lsKey: none,
+  $transform: uppercase
+) {
   font-family: $FONT_HEADING;
   font-size: sz($sizeKey);
   font-weight: wt($weightKey);
   letter-spacing: ls($lsKey);
   text-decoration: none;
-  @if $lh != null { line-height: $lh; }
-  @if $transform != none { text-transform: $transform; }
+  @if $lh != null {
+    line-height: $lh;
+  }
+  @if $transform != none {
+    text-transform: $transform;
+  }
 }
 
 @mixin labelUpper($sizeKey, $weightKey: semibold, $lh: null, $lsKey: md) {
   @include textSans($sizeKey, $weightKey, $lh, $lsKey, uppercase);
 }
 
-
 /** ---------------------------------------------------------------------------------
 ------------------------------------- BASE FONT -------------------------------------
 -------------------------------------------------------------------------------------*/
 
 html {
-  font-size : 16px; 
+  font-size: 16px;
 }
 
 h1 {
