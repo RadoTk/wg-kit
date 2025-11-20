@@ -1,0 +1,17 @@
+{% extends "dashboard/dashboard_page.html" %}
+
+{% block dashboard_content %}
+<h2>Mes Animaux</h2>
+<div class="animals-list">
+    {% if animals %}
+        {% for animal in animals %}
+        <div class="animal-item">
+            <h3>{{ animal.name }}</h3>
+            <p>Type: {{ animal.get_animal_type_display }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun animal enregistré.</p>
+    {% endif %}
+</div>
+{% endblock %}

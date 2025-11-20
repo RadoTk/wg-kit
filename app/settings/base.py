@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "app.animals",
     # "app.users",
     'app.users.apps.UsersConfig',
-    'app.dashboards',
+    'app.dashboard',
     
 
     "wagtail.contrib.forms",
@@ -87,6 +87,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "app.urls"
 
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile_edit')
+
+LOGIN_URL = '/users/login/'
 
 
 TEMPLATES = [

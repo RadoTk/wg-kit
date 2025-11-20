@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block extra_css %}
+<style>
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.dashboard-sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.user-info {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li {
+    margin: 10px 0;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.sidebar-menu a:hover .menu-status,
+.sidebar-menu a.active .menu-status {
+    color: white;
+}
+
+.menu-content {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.menu-status {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #f8f9fa;
+    color: #666;
+}
+
+.menu-status.disponible {
+    background: #d4edda;
+    color: #155724;
+}
+
+.menu-status.bientot {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.content-section {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logout-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.logout-link {
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+.logout-link:hover {
+    color: #333;
+}
+
+/* Styles pour le formulaire de profil */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #e9ecef;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.btn-change-photo {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-change-photo:hover {
+    background: #0056b3;
+}
+
+/* Styles pour les éléments de liste */
+.animal-item, .order-item, .subscription-item, .review-item {
+    padding: 15px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: #fafafa;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if user.get_full_name %}
+                    {{ user.get_full_name|first|upper }}
+                {% else %}
+                    {{ user.username|first|upper }}
+                {% endif %}
+            </div>
+            <h3>{{ user.get_full_name|default:user.username }}</h3>
+            <p>{{ user.email }}</p>
+        </div>
+
+        <ul class="sidebar-menu">
+            {% for item in sidebar_menu %}
+            <li>
+                <a href="{{ item.url }}" class="{% if item.slug == active_section %}active{% endif %}">
+                    <div class="menu-content">
+                        <span class="menu-icon">{{ item.icon }}</span>
+                        {{ item.name }}
+                    </div>
+                    <span class="menu-status {{ item.status }}">
+                        {{ item.status }}
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="logout-section">
+            <a href="{% url 'users:logout' %}" class="logout-link">
+                [ ] Déconnexion
+            </a>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="dashboard-content">
+        <!-- Banner -->
+        <div class="banner">
+            <h1>{{ page.banner_text }}</h1>
+        </div>
+
+        <!-- Dynamic Content -->
+        <div class="content-section">
+            {% block dashboard_content %}
+                <!-- Le contenu spécifique à chaque section sera injecté ici -->
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

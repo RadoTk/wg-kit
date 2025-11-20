@@ -1,0 +1,20 @@
+{% extends "dashboard/dashboard_page.html" %}
+
+{% block dashboard_content %}
+<h2>Mes Avis</h2>
+<div class="reviews-list">
+    {% if reviews %}
+        {% for review in reviews %}
+        <div class="review-item">
+            <h3>{{ review.product_name }}</h3>
+            <p>Note: {{ review.rating }}/5</p>
+            <p>{{ review.comment }}</p>
+            <small>Posté le: {{ review.created_at|date:"d/m/Y" }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Vous n'avez pas encore posté d'avis.</p>
+        <p><em>Fonctionnalité bientôt disponible</em></p>
+    {% endif %}
+</div>
+{% endblock %}
