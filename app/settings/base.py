@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "app.animals",
     # "app.users",
     'app.users.apps.UsersConfig',
+    'app.dashboards',
+    
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -66,6 +68,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
