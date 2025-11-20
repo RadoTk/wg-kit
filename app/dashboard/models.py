@@ -14,53 +14,96 @@ class DashboardPage(Page):
         FieldPanel('banner_text'),
     ]
 
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
+    def get_template(self, request, *args, **kwargs):
+        """Détermine le template en fonction de la section active"""
+        active_section = request.GET.get('section', 'compte')
+        is_partial = request.GET.get('partial') == '1'
         
-        active_section = request.GET.get('section', 'animaux')
+        if is_partial:
+            return f'dashboard/partials/{active_section}.html'
+        return 'dashboard/dashboard_page.html'
+
+    def get_sidebar_menu(self, request):
+        page_url = self.get_url(request) if request else self.url
         
-        sidebar_menu = [
-            { 
+        return [
+            {
                 'name': 'Mon espace',
                 'slug': 'compte',
-                'icon': '',
-                'url': f'{self.url}?section=compte'
+                'icon': '👤',
+                'url': f'{page_url}?section=compte',
+                'status': 'disponible'
             },
             {
                 'name': 'Mes Animaux',
                 'slug': 'animaux',
                 'icon': '🐕',
-                'url': f'{self.url}?section=animaux'
+                'url': f'{page_url}?section=animaux',
+                'status': 'disponible'
             },
             {
                 'name': 'Mes Commandes', 
                 'slug': 'commandes',
                 'icon': '📦',
-                'url': f'{self.url}?section=commandes'
+                'url': f'{page_url}?section=commandes',
+                'status': 'disponible'
             },
             {
                 'name': 'Abonnements',
                 'slug': 'abonnements', 
                 'icon': '🔔',
-                'url': f'{self.url}?section=abonnements'
+                'url': f'{page_url}?section=abonnements',
+                'status': 'disponible'
             },
             {
                 'name': 'Mes Avis',
                 'slug': 'avis',
                 'icon': '⭐',
-                'url': f'{self.url}?section=avis'
+                'url': f'{page_url}?section=avis',
+                'status': 'bientôt'
             },
             {
                 'name': 'Paramètres',
                 'slug': 'parametres',
                 'icon': '⚙️',
-                'url': f'{self.url}?section=parametres'
+                'url': f'{page_url}?section=parametres',
+                'status': 'disponible'
             },
         ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        
+        active_section = request.GET.get('section', 'compte')
         
         context.update({
-            'sidebar_menu': sidebar_menu,
+            'sidebar_menu': self.get_sidebar_menu(request),
             'active_section': active_section,
         })
+        
+        # Données de démonstration
+        if active_section == 'compte':
+            context.update({
+                'animals_count': 2,
+                'orders_count': 3,
+                'subscriptions_count': 2
+            })
+        elif active_section == 'animaux':
+            context['animals'] = [
+                {'name': 'Rex', 'animal_type': 'dog', 'get_animal_type_display': 'Chien'},
+                {'name': 'Misty', 'animal_type': 'cat', 'get_animal_type_display': 'Chat'},
+            ]
+        elif active_section == 'commandes':
+            context['orders'] = [
+                {'order_number': 'CMD-001', 'order_date': '2024-01-15', 'status': 'Livré'},
+                {'order_number': 'CMD-002', 'order_date': '2024-01-20', 'status': 'En cours'},
+            ]
+        elif active_section == 'abonnements':
+            context['subscriptions'] = [
+                {'product_name': 'Croquettes Premium', 'status': 'Actif', 'start_date': '2024-01-01'},
+                {'product_name': 'Soins Vétérinaires', 'status': 'Actif', 'start_date': '2024-01-10'},
+            ]
+        elif active_section == 'avis':
+            context['reviews'] = []
         
         return context

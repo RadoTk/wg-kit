@@ -1,65 +1,46 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from wagtail.models import Page
+from .models import DashboardPage
 
-@login_required
-def dashboard_section(request):
-    # Déterminer la section active depuis l'URL
-    active_section = request.GET.get('section', 'animaux')
+def dashboard_section(request, page_id=None):
+    """Vue qui gère à la fois le chargement complet et les partials HTMX"""
+    # Récupérer la page dashboard
+    if page_id:
+        page = Page.objects.get(id=page_id).specific
+    else:
+        page = DashboardPage.objects.live().first()
     
-    # Menu sidebar avec statuts
-    dashboard_url = '/dashboard/'
-    sidebar_menu = [
-        {
-            'name': 'Mes Animaux',
-            'slug': 'animaux',
-            'icon': '🐕',
-            'url': f'{dashboard_url}?section=animaux',
-            'status': 'disponible'
-        },
-        {
-            'name': 'Mes Commandes', 
-            'slug': 'commandes',
-            'icon': '📦',
-            'url': f'{dashboard_url}?section=commandes',
-            'status': 'disponible'
-        },
-        {
-            'name': 'Abonnements',
-            'slug': 'abonnements', 
-            'icon': '🔔',
-            'url': f'{dashboard_url}?section=abonnements',
-            'status': 'disponible'
-        },
-        {
-            'name': 'Mes Avis',
-            'slug': 'avis',
-            'icon': '⭐',
-            'url': f'{dashboard_url}?section=avis',
-            'status': 'bientôt'
-        },
-        {
-            'name': 'Paramètres',
-            'slug': 'parametres',
-            'icon': '⚙️',
-            'url': f'{dashboard_url}?section=parametres',
-            'status': 'disponible'
-        },
-    ]
+    # Déterminer la section active
+    active_section = request.GET.get('section', 'compte')
+    is_partial = request.GET.get('partial') == '1'
     
-    # Simuler des données pour la démonstration
-    # Dans la réalité, ces données viendront de vos applications existantes
-    context = {
-        'sidebar_menu': sidebar_menu,
-        'active_section': active_section,
-        'user': request.user,
-        'page': {
-            'banner_text': "OFFRE ABONNEMENT : 20% à vie sur tous les produits",
-            'title': 'Mon Espace'
-        }
-    }
+    # Préparer le contexte
+    context = page.get_context(request)
+    context['active_section'] = active_section
     
-    # Ajouter des données de démonstration selon la section
-    if active_section == 'animaux':
+    # Ajouter les données spécifiques à la section
+    _add_section_data(context, active_section)
+    
+    # Si c'est une requête HTMX (partial), renvoyer seulement le template partiel
+    if is_partial:
+        template_name = f"dashboard/partials/{active_section}.html"
+        return render(request, template_name, context)
+    
+    # CORRECTION : Utiliser render() au lieu de page.serve()
+    # pour éviter la duplication des headers/footers
+    template_name = "dashboard/dashboard_page.html"
+    return render(request, template_name, context)
+
+def _add_section_data(context, active_section):
+    """Ajoute les données spécifiques à chaque section"""
+    if active_section == 'compte':
+        context.update({
+            'animals_count': 2,
+            'orders_count': 3,
+            'subscriptions_count': 2
+        })
+    elif active_section == 'animaux':
         context['animals'] = [
             {'name': 'Rex', 'animal_type': 'dog', 'get_animal_type_display': 'Chien'},
             {'name': 'Misty', 'animal_type': 'cat', 'get_animal_type_display': 'Chat'},
@@ -75,11 +56,4 @@ def dashboard_section(request):
             {'product_name': 'Soins Vétérinaires', 'status': 'Actif', 'start_date': '2024-01-10'},
         ]
     elif active_section == 'avis':
-        context['reviews'] = []  # Aucun avis pour l'instant
-    elif active_section == 'parametres':
-        # Données pour les paramètres
-        pass
-    
-    template_name = f"dashboard/sections/{active_section}.html"
-    
-    return render(request, template_name, context)
+        context['reviews'] = []
