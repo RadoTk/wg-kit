@@ -35,42 +35,25 @@
      margin: $SPACE_8 0;
     &__title {
       text-align: center;
-      color: #695135;
-      text-transform: uppercase;
-      margin: 0 0 24px;
+
+      color: $COLOR_TEXT;
+      @include font.textHeading(xl, $BOLD, 1.2rem, lg);
     }
 
-    &__container {
-      padding: 0 34px;
-    }
+    // &__container {
+    //   padding: 0 34px;
+    // }
 
-    &__empty {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
+    // &__empty {
+    //   text-align: center;
+    //   padding: 20px;
+    //   color: #666;
+    // }
   }
 
   // Search form
   &-search {
-     margin: $SPACE_4 0;
-
-    // display: flex;
-    // gap: 12px;
-    // justify-content: center;
-    // padding: 18px;
-    // align-items: center;
-
-    // &__input {
-    //   padding: 8px 12px;
-    //   border: 1px solid #ccc;
-    //   border-radius: 4px;
-    //   font-size: 16px;
-    // }
-
-    // &__submit {
-    //   margin: 0;
-    // }
+     margin: $SPACE_4 0;  
   }
 }
 
