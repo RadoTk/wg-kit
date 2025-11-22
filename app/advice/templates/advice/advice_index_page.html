@@ -1,76 +1,11 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-
-
 {% block content %}
-  <nav class="advice-nav" aria-label="Catégories d'articles">
-    <a href="?category=chien" class="advice-nav__item">Chien</a>
-    <a href="?category=chat" class="advice-nav__item">Chat</a>
-    <a href="?category=bon_a_savoir" class="advice-nav__item">Bon à savoir</a>
-    <a href="?category=guide" class="advice-nav__item">Guide</a>
-  </nav>
-
-  <form method="get" class="advice-search" role="search">
-    <input type="text"
-           name="q"
-           value="{{ q }}"
-           placeholder="Rechercher un article"
-           class="advice-search__input" />
-    {% if category %}
-      <input type="hidden" name="category" value="{{ category }}" />
-    {% endif %}
-    <button type="submit" class="advice-search__submit advice-btn">Rechercher</button>
-  </form>
-
-  <section class="advice-featured">
-    <h2 class="advice-featured__title">Article à la une</h2>
-    <div class="advice-featured__container advice-cards">
-      {% for article in featured %}
-        <article class="advice-card advice-card--featured">
-          {% if article.listing_image %}
-            <div class="advice-card__image">
-              {% image article.listing_image fill-408x272 class="advice-card__img" %}
-            </div>
-          {% endif %}
-          <div class="advice-card__meta advice-badge">
-            <span class="advice-badge__category">{{ article.get_category_display }}</span>
-            <span class="advice-badge__date">{{ article.date }}</span>
-            <a href="{{ article.url }}" class="advice-btn advice-btn--secondary">Lire l’article</a>
-          </div>
-          <h3 class="advice-card__title">{{ article.title }}</h3>
-          {% if article.excerpt %}
-            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
-          {% endif %}
-        </article>
-      {% empty %}
-        <p class="advice-featured__empty">Aucun article en vedette.</p>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section class="advice-list" aria-labelledby="advice-list-title">
-    <h2 id="advice-list-title" class="advice-list__title">Tous les articles</h2>
-    <div class="advice-list__container advice-cards">
-      {% for article in articles %}
-        <article class="advice-card advice-card--small">
-          {% if article.listing_image %}
-            <div class="advice-card__image">
-              {% image article.listing_image fill-300x200 class="advice-card__img" %}
-            </div>
-          {% endif %}
-          <div class="advice-card__meta advice-badge">
-            <span class="advice-badge__category">{{ article.get_category_display }}</span>
-          </div>
-          <h3 class="advice-card__title">{{ article.title }}</h3>
-          {% if article.excerpt %}
-            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
-          {% endif %}
-          <a href="{{ article.url }}" class="advice-card__link advice-btn advice-btn--secondary">Lire l’article</a>
-        </article>
-      {% empty %}
-        <p class="advice-list__empty">Aucun article.</p>
-      {% endfor %}
-    </div>
-  </section>
+<div class="container">
+  
+  {% include "advice/includes/advice_navigation.html" %}
+  {% include "advice/includes/advice_featured.html" %}
+  {% include "advice/includes/advice_list.html" %}
+</div>
 {% endblock %}

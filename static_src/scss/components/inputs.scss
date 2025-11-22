@@ -3,7 +3,7 @@
 .input{display:flex;flex-direction:column;row-gap:$SPACE_2}
 .input-label{font-family:$font-sans;font-size:$FS_16;color:#2d2d2d}
 .input-field{display:flex;align-items:center;border:$BORDER_MD solid #e5e7eb;border-radius:$RADIUS_MD;background:#ffffff;padding:$SPACE_1 $SPACE_3;height:44px}
-.input-field.is-focus{border-color:$COLOR_PRIMARY}
-.input-field.is-error{border-color:$COLOR_ERROR_BORDER}
+.input-field.is-focus{border-color:$COLOR_YELLOW}
+.input-field.is-error{border-color:$COLOR_RED}
 .input-hint{font-family:$font-sans;font-size:$FS_14;color:#6b7280}
-.input-error{font-family:$font-sans;font-size:$FS_14;color:$COLOR_ERROR_BORDER}
+.input-error{font-family:$font-sans;font-size:$FS_14;color:$COLOR_RED}

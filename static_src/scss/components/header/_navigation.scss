@@ -7,7 +7,7 @@
   column-gap: $SPACE_5;
 }
 @mixin nav-text {
-  color: $text-color;
+  color: $COLOR_TEXT;
   @include font.labelUpper(lg, bold, 1.2rem, md);
 }
 
@@ -28,19 +28,19 @@
     @include nav-inline-flex-group;
 
     &.is-accent {
-      color: $COLOR_ERROR_BORDER;
+      color: $COLOR_RED;
     }
   }
   &__link {
     column-gap: 4px;
     &.is-accent {
-      color: $COLOR_ERROR_BORDER;
+      color: $COLOR_RED;
     }
   }
 
   &__button {
     border-radius: $RADIUS_PILL;
-    background: $COLOR_PRIMARY;
+    background: $COLOR_YELLOW;
     padding: $SPACE_3 $SPACE_6;
   }
 
@@ -67,7 +67,7 @@
   color: white;  
   font-family: $FONT_HEADING;
   font-size: 16px;
-  background: $COLOR_TERNARY;
+  background: $COLOR_PEACH;
   padding: $SPACE_3 0;
   text-align: center;
 }

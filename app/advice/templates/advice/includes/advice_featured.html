@@ -1,0 +1,26 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="advice-featured">
+    <h2 class="advice-featured__title">Article à la une</h2>
+    <div class="advice-featured__container advice-cards">
+      {% for article in featured %}
+        <article class="advice-card advice-card--featured">
+          {% if article.listing_image %}
+            <div class="advice-card__image">
+              {% image article.listing_image fill-408x272 class="advice-card__img" %}
+            </div>
+          {% endif %}
+          <div class="advice-card__meta advice-badge">
+            <span class="advice-badge__category">{{ article.get_category_display }}</span>
+            <span class="advice-badge__date">{{ article.date }}</span>
+            <a href="{{ article.url }}" class="advice-btn advice-btn--secondary">Lire l’article</a>
+          </div>
+          <h3 class="advice-card__title">{{ article.title }}</h3>
+          {% if article.excerpt %}
+            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
+          {% endif %}
+        </article>
+      {% empty %}
+        <p class="advice-featured__empty">Aucun article en vedette.</p>
+      {% endfor %}
+    </div>
+  </section>

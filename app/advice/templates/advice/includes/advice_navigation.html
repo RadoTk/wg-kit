@@ -1,0 +1,21 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<nav class="advice-nav" aria-label="Catégories d'articles">
+    <ul class="advice-nav__list">
+      <li class="advice-nav__item"><a href="?category=chien">Chien</a></li>
+      <li class="advice-nav__item"><a href="?category=chat">Chat</a></li>
+      <li class="advice-nav__item"><a href="?category=bon_a_savoir">Bon à savoir</a></li>
+      <li class="advice-nav__item"><a href="?category=guide">Guide</a></li>
+    </ul>
+  </nav>
+
+  <form method="get" class="advice-search" role="search">
+    <input type="text"
+           name="q"
+           value="{{ q }}"
+           placeholder="Rechercher un article"
+           class="advice-search__input" />
+    {% if category %}
+      <input type="hidden" name="category" value="{{ category }}" />
+    {% endif %}
+    <button type="submit" class="advice-search__submit advice-btn">Rechercher</button>
+  </form>

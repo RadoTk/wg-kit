@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+  <section class="advice-list" aria-labelledby="advice-list-title">
+    <h2 id="advice-list-title" class="advice-list__title">Tous les articles</h2>
+    <div class="advice-list__container advice-cards">
+      {% for article in articles %}
+        <article class="advice-card advice-card--small">
+          {% if article.listing_image %}
+            <div class="advice-card__image">
+              {% image article.listing_image fill-300x200 class="advice-card__img" %}
+            </div>
+          {% endif %}
+          <div class="advice-card__meta advice-badge">
+            <span class="advice-badge__category">{{ article.get_category_display }}</span>
+          </div>
+          <h3 class="advice-card__title">{{ article.title }}</h3>
+          {% if article.excerpt %}
+            <p class="advice-card__excerpt">{{ article.excerpt }}</p>
+          {% endif %}
+          <a href="{{ article.url }}" class="advice-card__link advice-btn advice-btn--secondary">Lire l’article</a>
+        </article>
+      {% empty %}
+        <p class="advice-list__empty">Aucun article.</p>
+      {% endfor %}
+    </div>
+  </section>

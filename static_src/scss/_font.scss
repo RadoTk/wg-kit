@@ -1,16 +1,17 @@
+@use "sass:map";
 @use "./vars.scss" as *;
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&family=Oswald:wght@200;300;400;500;600;700&display=swap");
 
 @function sz($k) {
-  @return map-get($FONT_SIZES, $k);
+  @return map.get($FONT_SIZES, $k);
 }
 
 @function ls($k) {
-  @return map-get($LETTER_SPACING, $k);
+  @return map.get($LETTER_SPACING, $k);
 }
 
 @function wt($k) {
-  @return map-get($FONT_WEIGHTS, $k);
+  @return map.get($FONT_WEIGHTS, $k);
 }
 
 @mixin textSans(
@@ -35,7 +36,7 @@
 
 @mixin textHeading(
   $sizeKey,
-  $weightKey: bold,
+  $weightKey: $BOLD,
   $lh: null,
   $lsKey: none,
   $transform: uppercase
@@ -53,7 +54,7 @@
   }
 }
 
-@mixin labelUpper($sizeKey, $weightKey: semibold, $lh: null, $lsKey: md) {
+@mixin labelUpper($sizeKey, $weightKey: $SEMIBOLD, $lh: null, $lsKey: md) {
   @include textSans($sizeKey, $weightKey, $lh, $lsKey, uppercase);
 }
 
@@ -66,42 +67,41 @@ html {
 }
 
 h1 {
-  color: $text-color;
-  @include textHeading(xxl, bold, 1.2rem, xl);
+  color: $COLOR_TEXT;
+  @include textHeading(xxl, $BOLD, 1.2rem, xl);
 }
 
 h2 {
-  color: $text-color;
-  @include textHeading(xl, bold, 1.2rem, lg);
+  color: $COLOR_TEXT;
+  @include textHeading(xl, $BOLD, 1.2rem, lg);
 }
 
 h3 {
-  color: $text-color;
-  @include textHeading(lg, bold, 1.2rem, md);
+  color: $COLOR_TEXT;
+  @include textHeading(lg, $BOLD, 1.2rem, md);
 }
 
 h4 {
-  color: $text-color;
-  @include textSans(md, bold, 1.2rem, sm);
+  color: $COLOR_TEXT;
+  @include textSans(md, $BOLD, 1.2rem, sm);
 }
 
 h5 {
-  color: $text-color;
-  @include textSans(sm, semibold, 1.2rem, none);
+  color: $COLOR_TEXT;
+  @include textSans(sm, $SEMIBOLD, 1.2rem, none);
 }
 
 h6 {
-  color: $text-color;
-  @include textSans(xs, semibold, 1.2rem, none);
+  color: $COLOR_TEXT;
+  @include textSans(xs, $SEMIBOLD, 1.2rem, none);
 }
 
 p {
-  color: $text-color;
+  color: $COLOR_TEXT;
   @include textSans(sm, regular, 1.2rem, none);
 }
 
-small {
-  color: $muted-color;
+  color: $COLOR_TEXT_MUTED;
   @include textSans(xs, regular, 1.4rem, xs);
 }
 
@@ -109,29 +109,25 @@ strong {
   font-weight: 700;
 }
 
-a {
-  color: $text-color;
+  color: $COLOR_TEXT;
   text-decoration: underline;
-  @include textSans(md, semibold, 1.4rem, none);
+  @include textSans(md, $SEMIBOLD, 1.4rem, none);
 }
 
-label {
-  color: $text-color;
-  @include labelUpper(md, semibold, 1.4rem);
+  color: $COLOR_TEXT;
+  @include labelUpper(md, $SEMIBOLD, 1.4rem);
 }
 
 button {
-  @include labelUpper(md, bold, 1.4rem);
+  @include labelUpper(md, $BOLD, 1.4rem);
 }
 
 ul,
 ol,
-li {
-  color: $text-color;
+  color: $COLOR_TEXT;
   @include textSans(md, regular, 1.2rem, none);
 }
 
-blockquote {
-  color: $muted-color;
+  color: $COLOR_TEXT_MUTED;
   @include textSans(md, regular, 1.2rem, sm);
 }
