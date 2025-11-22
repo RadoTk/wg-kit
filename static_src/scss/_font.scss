@@ -100,7 +100,7 @@ p {
   color: $COLOR_TEXT;
   @include textSans(sm, regular, 1.2rem, none);
 }
-
+a  {
   color: $COLOR_TEXT_MUTED;
   @include textSans(xs, regular, 1.4rem, xs);
 }
@@ -109,11 +109,12 @@ strong {
   font-weight: 700;
 }
 
+a {
   color: $COLOR_TEXT;
   text-decoration: underline;
   @include textSans(md, $SEMIBOLD, 1.4rem, none);
 }
-
+label {
   color: $COLOR_TEXT;
   @include labelUpper(md, $SEMIBOLD, 1.4rem);
 }
@@ -123,11 +124,11 @@ button {
 }
 
 ul,
-ol,
+ol,li {
   color: $COLOR_TEXT;
   @include textSans(md, regular, 1.2rem, none);
 }
-
+blockquote {
   color: $COLOR_TEXT_MUTED;
   @include textSans(md, regular, 1.2rem, sm);
 }
