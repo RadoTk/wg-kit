@@ -2,10 +2,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-<div class="container">
-  
-  {% include "advice/includes/advice_navigation.html" %}
-  {% include "advice/includes/advice_featured.html" %}
-  {% include "advice/includes/advice_list.html" %}
+<div class="advice">
+
+  <div class="container">
+    
+    {% include "advice/includes/advice_navigation.html" %}
+    {% include "advice/includes/advice_featured.html" %}
+    {% include "advice/includes/advice_list.html" %}
+  </div>
 </div>
 {% endblock %}

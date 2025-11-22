@@ -1,2 +1,47 @@
-@use '../vars.scss' as *;
+@use "../vars.scss" as *;
+@use "../font.scss" as font;
 
+.search-input {
+  display: flex;
+  align-items: center;
+  column-gap: $SPACE_3;
+  border: $BORDER_SM solid rgba($COLOR_TEXT_MUTED, 0.1);
+  border-radius: $RADIUS_PILL;
+  background: $COLOR_WHITE;
+  padding: $SPACE_4 $SPACE_6;
+  width: 100%;
+  max-width: 516px;
+  height: $HEIGHT_XL;
+  margin: 0 auto;
+
+  &__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: $COLOR_YELLOW;
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    border: none;
+    outline: none;
+    background: transparent;
+    @include font.textSans(md, $REGULAR, 19px, none, none);
+
+    &::placeholder {
+      color: rgba($COLOR_TEXT_MUTED, 0.5);
+    }
+  }
+
+  &__submit {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}

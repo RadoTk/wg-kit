@@ -3,71 +3,75 @@
 @use "./page.scss";
 @use "../../font.scss" as font;
 
-// Navigation for advice categories
-.advice-nav {
-  &__list {
-    display: flex;
-    padding: $SPACE_4 $SPACE_2;
-    flex-direction: row;
-    gap: 34px;
-    align-self: stretch;
-    justify-content: center;
-  }
+.advice {
+    background-color: $COLOR_CREAM_LIGHT;
 
-  &__item {
-    display: inline-block;  
-    text-align: center;    
-    a {
-      color: #d94f0b;
-      @include font.labelUpper(md, $REGULAR, 1.2rem, md);
-      &:hover {
-        font-weight: $BOLD;
+  &-nav {
+    padding: $SPACE_4 0;
+
+    &__list {
+      display: flex;
+      padding: $SPACE_4 $SPACE_2;
+      flex-direction: row;
+      gap: 34px;
+      align-self: stretch;
+      justify-content: center;
+    }
+
+    &__item {
+      display: inline-block;
+      text-align: center;
+      a {
+        color: #d94f0b;
+        @include font.labelUpper(md, $REGULAR, 1.2rem, md);
+        &:hover {
+          font-weight: $BOLD;
+        }
       }
-    } 
+    }
   }
-}
 
-// Search form
-.advice-search {
-  // display: flex;
-  // gap: 12px;
-  // justify-content: center;
-  // padding: 18px;
-  // align-items: center;
+  &-featured {
+     margin: $SPACE_8 0;
+    &__title {
+      text-align: center;
+      color: #695135;
+      text-transform: uppercase;
+      margin: 0 0 24px;
+    }
 
-  // &__input {
-  //   padding: 8px 12px;
-  //   border: 1px solid #ccc;
-  //   border-radius: 4px;
-  //   font-size: 16px;
-  // }
+    &__container {
+      padding: 0 34px;
+    }
 
-  // &__submit {
-  //   margin: 0;
-  // }
-}
+    &__empty {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+  }
 
-// Featured articles section
-.advice-featured {
-  // background: #fee6bb40;
-  // padding: 34px 0;
+  // Search form
+  &-search {
+     margin: $SPACE_4 0;
 
-  // &__title {
-  //   text-align: center;
-  //   color: #695135;
-  //   text-transform: uppercase;
-  //   margin: 0 0 24px;
-  // }
+    // display: flex;
+    // gap: 12px;
+    // justify-content: center;
+    // padding: 18px;
+    // align-items: center;
 
-  // &__container {
-  //   padding: 0 34px;
-  // }
+    // &__input {
+    //   padding: 8px 12px;
+    //   border: 1px solid #ccc;
+    //   border-radius: 4px;
+    //   font-size: 16px;
+    // }
 
-  // &__empty {
-  //   text-align: center;
-  //   padding: 20px;
-  //   color: #666;
-  // }
+    // &__submit {
+    //   margin: 0;
+    // }
+  }
 }
 
 // All articles section
