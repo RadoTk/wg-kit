@@ -2,12 +2,16 @@
 @use "../font.scss" as font;
 
 .card {
-  &-advices {
-    gap: $SPACE_8;
+  &-advices, &-list {
+    gap: $SPACE_4;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     padding: $SPACE_8 $SPACE_10;
+  }
+  &-list {
+    gap: $SPACE_4;
+    padding: $SPACE_8 $SPACE_4;
   }
   &-advice {
     // border: $BORDER_SM solid #e5e7eb;
@@ -57,5 +61,7 @@
         color: $BLACK;
         padding-bottom: $SPACE_2;
     }
+
+
   }
 }

@@ -1,23 +1,26 @@
 {% load wagtailcore_tags wagtailimages_tags %}
   <section class="advice-list" aria-labelledby="advice-list-title">
-    <h2 id="advice-list-title" class="advice-list__title">Tous les articles</h2>
-    <div class="advice-list__container card-advices">
+    <h2 class="advice__title">Tous les articles</h2>
+    <div class="advice-list__container card-list">
       {% for article in articles %}
+
         <article class="card-advice card-advice--small">
           {% if article.listing_image %}
-            <div class="card-advice__image">
-              {% image article.listing_image fill-300x200 class="card-advice__img" %}
-            </div>
+           
+      {% image article.listing_image fill-600x600 class="card-advice__image" %}
           {% endif %}
           <div class="card-advice__meta advice-badge">
-            <span class="advice-badge__category">{{ article.get_category_display }}</span>
+            <span class="card-advice-badge__category">
+          {% lucide 'bookmark' size=16 %}
+          {{ article.get_category_display }}</span>
           </div>
-          <h3 class="card-advice__title">{{ article.title }}</h3>
+           <h3 class="card-advice__title">{{ article.title }}</h3>
           {% if article.excerpt %}
             <p class="card-advice__excerpt">{{ article.excerpt }}</p>
           {% endif %}
-          <a href="{{ article.url }}" class="card-advice__link advice-btn advice-btn--secondary">Lire l’article</a>
+         
         </article>
+      
       {% empty %}
         <p class="advice-list__empty">Aucun article.</p>
       {% endfor %}

@@ -4,7 +4,7 @@
 @use "../../font.scss" as font;
 
 .advice {
-    background-color: $COLOR_CREAM_LIGHT;
+  background-color: $COLOR_CREAM_LIGHT;
 
   &-nav {
     padding: $SPACE_4 0;
@@ -30,15 +30,13 @@
       }
     }
   }
-
+  &__title {
+    text-align: center;
+    color: $COLOR_TEXT;
+    @include font.textHeading(xl, $BOLD, 1.2rem, lg);
+  }
   &-featured {
-     margin: $SPACE_8 0;
-    &__title {
-      text-align: center;
-
-      color: $COLOR_TEXT;
-      @include font.textHeading(xl, $BOLD, 1.2rem, lg);
-    }
+    margin: $SPACE_8 0;
 
     // &__container {
     //   padding: 0 34px;
@@ -53,7 +51,7 @@
 
   // Search form
   &-search {
-     margin: $SPACE_4 0;  
+    margin: $SPACE_4 0;
   }
 }
 

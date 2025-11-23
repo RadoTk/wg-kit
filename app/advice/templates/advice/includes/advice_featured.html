@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <section class="advice-featured">
-  <h2 class="advice-featured__title">Article à la une</h2>
+  <h2 class="advice__title">Article à la une</h2>
   <div class="advice-featured__container card-advices">
 
     {% for article in featured %}
@@ -16,7 +16,7 @@
           {{ article.get_category_display }}</span>
         <span class="card-advice-badge__date">
           {% lucide 'calendar' size=16 %}
-{{ article.date|date:"d/m/Y" }}</span>
+          {{ article.date|date:"d/m/Y" }}</span>
         <a href="{{ article.url }}" class="card-advice-badge__read">Lire l’article</a>
       </div>
 
