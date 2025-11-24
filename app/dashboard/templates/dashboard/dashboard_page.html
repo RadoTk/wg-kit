@@ -185,30 +185,31 @@
         </div>
 
         <ul class="sidebar-menu">
-            {% for item in sidebar_menu %}
-            <li>
-                <a href="{{ item.url }}" 
-                   class="{% if item.slug == active_section %}active{% endif %}"
-                   hx-get="{{ item.url }}&partial=1"
-                   hx-target="#dashboard-content"
-                   hx-push-url="true"
-                   hx-swap="innerHTML"
-                   hx-indicator="#loading-{{ item.slug }}"
-                   data-section="{{ item.slug }}">
-                    <div class="menu-content">
-                        <span class="menu-icon">{{ item.icon }}</span>
-                        {{ item.name }}
-                        <span id="loading-{{ item.slug }}" class="htmx-indicator" style="margin-left: 10px;">
-                            <small>⟳</small>
-                        </span>
-                    </div>
-                    <span class="menu-status {{ item.status }}">
-                        {{ item.status }}
-                    </span>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
+    {% for item in sidebar_menu %}
+    <li>
+        <a href="{{ item.url }}" 
+           class="{% if item.slug == active_section %}active{% endif %}"
+           hx-get="{{ item.url }}&partial=1"
+           hx-target="#dashboard-content"
+           hx-push-url="{{ item.url }}"  
+           hx-swap="innerHTML"
+           hx-indicator="#loading-{{ item.slug }}"
+           data-section="{{ item.slug }}">
+            <div class="menu-content">
+                <span class="menu-icon">{{ item.icon }}</span>
+                {{ item.name }}
+                <span id="loading-{{ item.slug }}" class="htmx-indicator" style="margin-left: 10px;">
+                    <small>⟳</small>
+                </span>
+            </div>
+            <span class="menu-status {{ item.status }}">
+                {{ item.status }}
+            </span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
 
         <div class="logout-section">
             <a href="{% url 'users:logout' %}" class="logout-link">
