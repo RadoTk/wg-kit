@@ -1,13 +1,11 @@
 <h2>Mes Animaux</h2>
-<div class="animals-list">
-    {% if animals %}
-        {% for animal in animals %}
-        <div class="animal-item">
-            <h3>{{ animal.name }}</h3>
-            <p>Type: {{ animal.get_animal_type_display }}</p>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>Aucun animal enregistré.</p>
-    {% endif %}
-</div>
+{% for animal in animals %}
+    <div class="animal-item">
+        <strong>{{ animal.name }}</strong> — {{ animal.get_category_display }}
+        {% if animal.photo %}
+            <img src="{{ animal.photo.get_rendition('fill-100x100').url }}" alt="{{ animal.name }}">
+        {% endif %}
+    </div>
+{% empty %}
+    <p>Vous n’avez pas encore d’animaux enregistrés.</p>
+{% endfor %}
