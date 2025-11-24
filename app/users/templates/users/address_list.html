@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Mes adresses</h1>
+
+<a href="{% url 'users:address_add' %}" class="btn btn-success mb-3">Ajouter une nouvelle adresse</a>
+
+{% if addresses %}
+    <div class="row">
+        {% for address in addresses %}
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ address.full_name }}</h5>
+                        <p class="card-text">
+                            {{ address.address_line1 }}<br>
+                            {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                            {{ address.postal_code }} {{ address.city }}<br>
+                            {{ address.country.name }}<br>
+                            {% if address.phone_number %}Téléphone : {{ address.phone_number }}<br>{% endif %}
+                            Type : {{ address.get_address_type_display }}<br>
+                            {% if address.is_default %}<span class="badge bg-primary">Par défaut</span>{% endif %}
+                        </p>
+                        <a href="{% url 'users:address_edit' address.pk %}" class="btn btn-sm btn-primary">Modifier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Vous n'avez encore aucune adresse.</p>
+{% endif %}
+
+{% endblock %}

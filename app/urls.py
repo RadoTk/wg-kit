@@ -14,11 +14,19 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     # Remove if not required
     path("style-guide/", include("app.style_guide.urls")),
-    # path("confessions/", include("app.confession.urls")),
+    path("confessions/", include("app.confession.urls")),
+    path("confessions/", include("app.confession.urls")),
+    path("animals/", include("app.animals.urls")),
+    path("users/", include("app.users.urls")),
+
 ]
 
 
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 

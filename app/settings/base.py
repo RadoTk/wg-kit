@@ -14,6 +14,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
+
 PROJECT_DIR = Path.resolve(Path(__file__).parent.parent)
 BASE_DIR = Path.resolve(PROJECT_DIR.parent)
 
@@ -32,10 +35,14 @@ INSTALLED_APPS = [
     "app.advice",
     
     # "app.confession",
-    # "app.blog",
+    "app.blog",
     # "app.agenda",
-    # "app.confession",
+    "app.confession",
     # 'app.contact',
+    "app.animals",
+    # "app.users",
+    'app.users.apps.UsersConfig',
+
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -58,6 +65,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -69,10 +77,14 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "app.urls"
+
+LOGIN_REDIRECT_URL = reverse_lazy('users:profile_edit')
+
 
 TEMPLATES = [
     {
@@ -235,3 +247,8 @@ WAGTAILDOCS_EXTENSIONS = [
 # and it is recommended to increase this from Django’s default of 1000,
 # as particularly complex page models can exceed this limit within Wagtail’s page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
