@@ -1,4 +1,6 @@
 {% load static %}
+{% load static dashboard_tags %}
+
 <nav class="main-navigation container" role="navigation" aria-label="Menu principal">
   <div class="main-navigation__left">
     <ul class="main-navigation__list" role="menubar">
@@ -33,21 +35,34 @@
     <ul class="main-navigation__list" role="menubar">
       <li class="main-navigation__item" role="menuitem">
         <a href="#" class="main-navigation__link">
-           <span class="main-navigation__link-text">A Propos</span>
+          <span class="main-navigation__link-text">A Propos</span>
           <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
         </a>
       </li>
+
       <li class="main-navigation__item" role="menuitem">
         <a href="#" class="main-navigation__link">
-           <span class="main-navigation__link-text">Conseils</span>
+          <span class="main-navigation__link-text">Conseils</span>
           <span class="main-navigation__icon--angle" aria-hidden="true">{% lucide 'chevron-right' size=16 %}</span>
         </a>
       </li>
+
+      <!-- 👇 Ici on adapte en fonction de l'état de connexion -->
       <li class="main-navigation__item" role="menuitem">
-        <a href="#" aria-label="Mon compte" class="main-navigation__icon">
-          {% lucide "user" %}
-        </a>
+
+        {% if request.user.is_authenticated %}
+          <!-- Si connecté → Dashboard -->
+          <a href="{% get_dashboard_url %}" aria-label="Mon compte" class="main-navigation__icon">
+            {% lucide "user" %}
+          </a>
+        {% else %}
+          <!-- Si NON connecté → Login -->
+          <a href="{% url 'users:login' %}" aria-label="Connexion" class="main-navigation__icon">
+            {% lucide "user" %}
+          </a>
+        {% endif %}
       </li>
+
       <li class="main-navigation__item" role="menuitem">
         <a href="#" aria-label="Panier" class="main-navigation__icon">
           {% lucide "shopping-cart" %}

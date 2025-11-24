@@ -1,0 +1,17 @@
+
+{% block dashboard_content %}
+<h2>Abonnements</h2>
+<div class="subscriptions-list">
+    {% if subscriptions %}
+        {% for subscription in subscriptions %}
+        <div class="subscription-item" style="padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 5px;">
+            <h3>{{ subscription.product_name }}</h3>
+            <p>Statut: {{ subscription.status }}</p>
+            <p>Début: {{ subscription.start_date|date:"d/m/Y" }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun abonnement actif.</p>
+    {% endif %}
+</div>
+{% endblock %}

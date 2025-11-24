@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "app.animals",
     # "app.users",
     'app.users.apps.UsersConfig',
+    'app.dashboard',
+    
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -66,6 +68,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -84,6 +87,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "app.urls"
 
 LOGIN_REDIRECT_URL = reverse_lazy('users:profile_edit')
+
+LOGIN_URL = '/users/login/'
 
 
 TEMPLATES = [

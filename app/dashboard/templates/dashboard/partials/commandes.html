@@ -1,0 +1,17 @@
+
+{% block dashboard_content %}
+<h2>Mes Commandes</h2>
+<div class="orders-list">
+    {% if orders %}
+        {% for order in orders %}
+        <div class="order-item" style="padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 5px;">
+            <h3>Commande #{{ order.order_number }}</h3>
+            <p>Date: {{ order.order_date|date:"d/m/Y" }}</p>
+            <p>Statut: {{ order.status }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucune commande trouvée.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+
+{% block dashboard_content %}
+<h2>Paramètres du Compte</h2>
+
+<div class="profile-section">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {% if user.get_full_name %}
+                {{ user.get_full_name|first|upper }}
+            {% else %}
+                {{ user.username|first|upper }}
+            {% endif %}
+        </div>
+        <div>
+            <h3>{{ user.get_full_name|default:user.username }}</h3>
+            <button class="btn-change-photo">Changer la photo</button>
+        </div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" class="form-control" value="{{ user.first_name }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" class="form-control" value="{{ user.last_name }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" class="form-control" value="{{ user.email }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telephone">Téléphone</label>
+                <input type="tel" id="telephone" class="form-control" value="05 12 34 55 78">
+            </div>
+        </div>
+        
+        <button type="submit" class="btn-change-photo" style="margin-top: 20px;">Enregistrer les modifications</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<h2>Mes Animaux</h2>
+{% for animal in animals %}
+    <div class="animal-item">
+        <strong>{{ animal.name }}</strong> — {{ animal.get_category_display }}
+        {% if animal.photo %}
+            <img src="{{ animal.photo.get_rendition('fill-100x100').url }}" alt="{{ animal.name }}">
+        {% endif %}
+    </div>
+{% empty %}
+    <p>Vous n’avez pas encore d’animaux enregistrés.</p>
+{% endfor %}
