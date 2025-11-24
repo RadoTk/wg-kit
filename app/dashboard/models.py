@@ -91,9 +91,10 @@ class DashboardPage(Page):
                 'orders_count': 3,
                 'subscriptions_count': 2
             })
+
         elif active_section == 'animaux':
             user = request.user
-            context['animals'] = [Animal.objects.filter(owner=user)]
+            context['animals'] = Animal.objects.filter(owner=user)
         elif active_section == 'commandes':
             context['orders'] = [
                 {'order_number': 'CMD-001', 'order_date': '2024-01-15', 'status': 'Livré'},
