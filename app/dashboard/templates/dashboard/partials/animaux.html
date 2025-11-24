@@ -1,10 +1,30 @@
+{% load wagtailimages_tags %}
+
 <h2>Mes Animaux</h2>
+<p>Gérez les fiches de vos compagnons</p>
+
 {% for animal in animals %}
-    <div class="animal-item">
-        <strong>{{ animal.name }}</strong> — {{ animal.get_category_display }}
+    <div class="animal-item" style="border:1px solid #eee; padding:15px; margin-bottom:15px; border-radius:8px; display:flex; gap:15px; align-items:flex-start;">
+        
         {% if animal.photo %}
-            <img src="{{ animal.photo.get_rendition('fill-100x100').url }}" alt="{{ animal.name }}">
+            <div class="animal-photo">
+                {% image animal.photo fill-100x100 as img %}
+                <img src="{{ img.url }}" alt="{{ animal.name }}" style="border-radius:8px;">
+            </div>
         {% endif %}
+        
+        <div class="animal-info">
+            <h3>{{ animal.name }}</h3>
+            {% if animal.breed %}<p><strong>Race:</strong> {{ animal.breed }}</p>{% endif %}
+            <p><strong>Catégorie:</strong> {{ animal.get_category_display }}</p>
+            <p><strong>Âge:</strong> {{ animal.age_years }} ans</p>
+            {% if animal.weight_kg %}<p><strong>Poids:</strong> {{ animal.weight_kg }} kg</p>{% endif %}
+            <p><strong>Sexe:</strong> {{ animal.get_sex_display }}</p>
+            {% if animal.vet_name %}<p><strong>Vétérinaire:</strong> {{ animal.vet_name }}</p>{% endif %}
+            {% if animal.allergies %}<p><strong>Allergies:</strong> {{ animal.allergies }}</p>{% endif %}
+            {% if animal.medical_conditions %}<p><strong>Conditions médicales:</strong> {{ animal.medical_conditions }}</p>{% endif %}
+        </div>
+
     </div>
 {% empty %}
     <p>Vous n’avez pas encore d’animaux enregistrés.</p>
