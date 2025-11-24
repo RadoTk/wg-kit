@@ -22,3 +22,9 @@ dev-dependencies = [
     "pre-commit",
     "pyupgrade",
 ]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]

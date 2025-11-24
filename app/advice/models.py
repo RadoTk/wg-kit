@@ -33,7 +33,9 @@ class AdviceIndexPage(Page):
 
         featured = list(qs.filter(is_featured=True)[:3])
         featured_ids = [p.id for p in featured]
-        articles = qs.exclude(id__in=featured_ids)
+
+        articles = (featured + list(qs.exclude(id__in=featured_ids)))[:4]
+        # articles = qs.exclude(id__in=featured_ids)
 
         context.update({
             "featured": featured,

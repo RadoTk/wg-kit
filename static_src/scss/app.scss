@@ -7,4 +7,12 @@
 // COMPONENTS
 @use './components/header/navigation.scss';
 @use './components/footer/link.scss';
+@use './components/buttons.scss';
+@use './components/inputs.scss';
+@use './components/cards.scss';
+
+
+
+// PAGES
+@use './app/advice/index.scss';
 

@@ -1,7 +1,7 @@
 @use '../vars.scss' as *;
 
 .alert{display:flex;align-items:flex-start;column-gap:$SPACE_3;border-left:$BORDER_LG solid;border-radius:$RADIUS_MD;background:#ffffff;padding:$SPACE_4 $SPACE_4 $SPACE_1;height:auto}
-.alert.is-info{background:$COLOR_INFO_BG;border-color:$COLOR_INFO_BORDER;color:#7474c2}
-.alert.is-success{background:$COLOR_SUCCESS_BG;border-color:$COLOR_SUCCESS_BORDER;color:#597fae}
-.alert.is-warning{background:$COLOR_WARNING_BG;border-color:$COLOR_WARNING_BORDER;color:#da673c}
-.alert.is-error{background:$COLOR_ERROR_BG;border-color:$COLOR_ERROR_BORDER;color:#d94f0b}
+.alert.is-info{background:$COLOR_LAVENDER_LIGHT;border-color:$COLOR_LAVENDER_DARK;color:#7474c2}
+.alert.is-success{background:$COLOR_BLUE_LIGHT;border-color:$COLOR_BLUE_SOFT_DARK;color:#597fae}
+.alert.is-warning{background:$COLOR_ORANGE_LIGHT;border-color:$COLOR_ORANGE;color:#da673c}
+.alert.is-error{background:$COLOR_RED_LIGHT;border-color:$COLOR_RED;color:#d94f0b}

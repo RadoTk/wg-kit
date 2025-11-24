@@ -1,0 +1,20 @@
+@use "../vars.scss" as *;
+@use "../font.scss" as font;
+
+@mixin nav-text {
+  color: $COLOR_TEXT;
+  @include font.labelUpper(lg, bold, 1.2rem, md);
+}
+
+.button {
+  @include nav-text();
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $RADIUS_PILL;
+  padding: $SPACE_3 $SPACE_6;
+
+  &__yellow {
+    background: $COLOR_YELLOW;
+  }
+}

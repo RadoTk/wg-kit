@@ -1,0 +1,67 @@
+@use "../vars.scss" as *;
+@use "../font.scss" as font;
+
+.card {
+  &-advices, &-list {
+    gap: $SPACE_4;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: $SPACE_8 $SPACE_10;
+  }
+  &-list {
+    gap: $SPACE_4;
+    padding: $SPACE_8 $SPACE_4;
+  }
+  &-advice {
+    // border: $BORDER_SM solid #e5e7eb;
+    // box-shadow: $SHADOW_MD;
+    // background: #ffffff;
+
+    &__image {
+      width: 100%;
+      object-fit: cover;
+      border-radius: $RADIUS_LG;
+    }
+
+    &__meta {
+      color: $COLOR_TEXT_MUTED;
+      gap: $SPACE_4;
+      display: flex;
+      flex-direction: row;
+      padding: $SPACE_4 0;
+      align-items: center;
+      justify-content: space-between;
+      @include font.labelUpper(sm, $LIGHT, 1.4rem);
+    }
+    &-badge {
+      &__category,
+      &__date {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: $SPACE_2;
+      }
+      &__category {
+        color: $COLOR_RUST;
+      }
+      &__read {
+        @include font.labelUpper(xs, $LIGHT, 1.4rem);
+        padding: $SPACE_1 $SPACE_4;
+        border-radius: $RADIUS_PILL;
+        background: $COLOR_ORANGE;
+        color: $COLOR_WHITE;
+      }
+    }
+    &__title {
+        @include font.textSans(sm, $SEMIBOLD, 1.4rem, md, initial);
+        color: $BLACK;
+        padding-bottom: $SPACE_2;
+    }
+
+
+  }
+}

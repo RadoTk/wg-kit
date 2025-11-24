@@ -1,73 +1,14 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block extra_css %}
-<style>
-  .advice-nav{display:flex;gap:12px;justify-content:center;padding:12px}
-  .advice-nav a{color:#d94f0b;text-transform:uppercase;font-weight:700}
-  .search{display:flex;gap:12px;justify-content:center;padding:18px}
-  .hero{background:#fee6bb40;padding:34px}
-  .hero h2,.list h2{text-align:center;color:#695135;text-transform:uppercase}
-  .cards{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
-  .card{width:408px;display:flex;flex-direction:column;gap:12px}
-  .card h3{font-size:16px;font-weight:600;margin:0}
-  .card p{font-size:16px;margin:0}
-  .badge{display:flex;align-items:center;gap:6px}
-  .btn{background:#ffd012;border-radius:100px;padding:6px 14px;text-transform:uppercase;font-size:12px}
-  .small-card{width:300px}
-</style>
-{% endblock %}
-
 {% block content %}
-  <nav class="advice-nav">
-    <a href="?category=chien">Chien</a>
-    <a href="?category=chat">Chat</a>
-    <a href="?category=bon_a_savoir">Bon à savoir</a>
-    <a href="?category=guide">Guide</a>
-  </nav>
+<div class="advice">
 
-  <form method="get" class="search">
-    <input type="text" name="q" value="{{ q }}" placeholder="Rechercher un article" />
-    {% if category %}<input type="hidden" name="category" value="{{ category }}" />{% endif %}
-    <button type="submit" class="btn">Rechercher</button>
-  </form>
-
-  <section class="hero">
-    <h2>Article à la une</h2>
-    <div class="cards">
-      {% for article in featured %}
-        <article class="card">
-          {% if article.listing_image %}{% image article.listing_image fill-408x272 %}{% endif %}
-          <div class="badge">
-            <span>{{ article.get_category_display }}</span>
-            <span>{{ article.date }}</span>
-            <a href="{{ article.url }}" class="btn">Lire l’article</a>
-          </div>
-          <h3>{{ article.title }}</h3>
-          {% if article.excerpt %}<p>{{ article.excerpt }}</p>{% endif %}
-        </article>
-      {% empty %}
-        <p>Aucun article en vedette.</p>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section class="list" style="padding:34px 0">
-    <h2>Tous les articles</h2>
-    <div class="cards">
-      {% for article in articles %}
-        <article class="card small-card">
-          {% if article.listing_image %}{% image article.listing_image fill-300x200 %}{% endif %}
-          <div class="badge">
-            <span>{{ article.get_category_display }}</span>
-          </div>
-          <h3>{{ article.title }}</h3>
-          {% if article.excerpt %}<p>{{ article.excerpt }}</p>{% endif %}
-          <a href="{{ article.url }}" class="btn">Lire l’article</a>
-        </article>
-      {% empty %}
-        <p>Aucun article.</p>
-      {% endfor %}
-    </div>
-  </section>
+  <div class="container">
+    
+    {% include "advice/includes/advice_navigation.html" %}
+    {% include "advice/includes/advice_featured.html" %}
+    {% include "advice/includes/advice_list.html" %}
+  </div>
+</div>
 {% endblock %}

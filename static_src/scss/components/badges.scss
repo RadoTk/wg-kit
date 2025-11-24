@@ -1,6 +1,6 @@
 @use '../vars.scss' as *;
 
 .badge{display:flex;align-items:center;border-radius:$RADIUS_PILL;padding:$SPACE_1 $SPACE_3;height:30px;font-family:$font-sans;font-size:$FS_14}
-.badge.is-new{border:$BORDER_SM solid $COLOR_PRIMARY;background:#fff4c9;color:#695135}
-.badge.is-active{border:$BORDER_SM solid #597fae;background:$COLOR_SUCCESS_BG;color:#597fae}
-.badge.is-pending{border:$BORDER_SM solid #da673c;background:$COLOR_WARNING_BG;color:$COLOR_ERROR_BORDER}
+.badge.is-new{border:$BORDER_SM solid $COLOR_YELLOW;background:#fff4c9;color:#695135}
+.badge.is-active{border:$BORDER_SM solid #597fae;background:$COLOR_BLUE_LIGHT;color:#597fae}
+.badge.is-pending{border:$BORDER_SM solid $COLOR_ORANGE;background:$COLOR_ORANGE_LIGHT;color:$COLOR_RED}
