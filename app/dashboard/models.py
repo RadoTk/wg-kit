@@ -17,7 +17,7 @@ class DashboardPage(Page):
 
     def get_template(self, request, *args, **kwargs):
         """Détermine le template en fonction de la section active"""
-        active_section = request.GET.get('section', 'compte')
+        active_section = request.GET.get('section', 'my_account')
         is_partial = request.GET.get('partial') == '1'
         
         if is_partial:
@@ -32,42 +32,42 @@ class DashboardPage(Page):
                 'name': 'Mon espace',
                 'slug': 'compte',
                 'icon': '👤',
-                'url': f'{page_url}?section=compte',
+                'url': f'{page_url}?section=my_account',
                 'status': 'disponible'
             },
             {
                 'name': 'Mes Animaux',
                 'slug': 'animaux',
                 'icon': '🐕',
-                'url': f'{page_url}?section=animaux',
+                'url': f'{page_url}?section=my_animal_list',
                 'status': 'disponible'
             },
             {
                 'name': 'Mes Commandes', 
                 'slug': 'commandes',
                 'icon': '📦',
-                'url': f'{page_url}?section=commandes',
+                'url': f'{page_url}?section=my_command',
                 'status': 'disponible'
             },
             {
                 'name': 'Abonnements',
                 'slug': 'abonnements', 
                 'icon': '🔔',
-                'url': f'{page_url}?section=abonnements',
+                'url': f'{page_url}?section=subscription',
                 'status': 'disponible'
             },
             {
                 'name': 'Mes Avis',
                 'slug': 'avis',
                 'icon': '⭐',
-                'url': f'{page_url}?section=avis',
+                'url': f'{page_url}?section=my_opinion',
                 'status': 'bientôt'
             },
             {
                 'name': 'Paramètres',
                 'slug': 'parametres',
                 'icon': '⚙️',
-                'url': f'{page_url}?section=parametres',
+                'url': f'{page_url}?section=account_parameter',
                 'status': 'disponible'
             },
         ]
@@ -83,7 +83,7 @@ class DashboardPage(Page):
         })
         
         # Données de démonstration
-        if active_section == 'compte':
+        if active_section == 'my_account':
             user = request.user
 
             context.update({
@@ -92,20 +92,22 @@ class DashboardPage(Page):
                 'subscriptions_count': 2
             })
 
-        elif active_section == 'animaux':
+        elif active_section == 'my_animal_list':
             user = request.user
             context['animals'] = Animal.objects.filter(owner=user)
-        elif active_section == 'commandes':
+        elif active_section == 'my_command':
             context['orders'] = [
                 {'order_number': 'CMD-001', 'order_date': '2024-01-15', 'status': 'Livré'},
                 {'order_number': 'CMD-002', 'order_date': '2024-01-20', 'status': 'En cours'},
             ]
-        elif active_section == 'abonnements':
+        elif active_section == 'subscription':
             context['subscriptions'] = [
                 {'product_name': 'Croquettes Premium', 'status': 'Actif', 'start_date': '2024-01-01'},
                 {'product_name': 'Soins Vétérinaires', 'status': 'Actif', 'start_date': '2024-01-10'},
             ]
-        elif active_section == 'avis':
+        elif active_section == 'my_opinion':
             context['reviews'] = []
         
         return context
+    
+    
