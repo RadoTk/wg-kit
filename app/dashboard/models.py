@@ -1,4 +1,6 @@
+# dashboard/models.py
 from django.db import models
+from django.urls import reverse
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from app.animals.models import Animal
@@ -15,99 +17,117 @@ class DashboardPage(Page):
         FieldPanel('banner_text'),
     ]
 
-    def get_template(self, request, *args, **kwargs):
-        """Détermine le template en fonction de la section active"""
-        active_section = request.GET.get('section', 'my_account')
-        is_partial = request.GET.get('partial') == '1'
-        
-        if is_partial:
-            return f'dashboard/partials/{active_section}.html'
-        return 'dashboard/dashboard_page.html'
-
-    def get_sidebar_menu(self, request):
-        page_url = self.get_url(request) if request else self.url
-        
-        return [
+    def get_sidebar_menu(self, request, active_section=None):
+        """Génère le menu sidebar"""
+        menu_items = [
             {
                 'name': 'Mon espace',
                 'slug': 'compte',
                 'icon': '👤',
-                'url': f'{page_url}?section=my_account',
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'my_account'}),
                 'status': 'disponible'
             },
             {
                 'name': 'Mes Animaux',
-                'slug': 'animaux',
+                'slug': 'animaux', 
                 'icon': '🐕',
-                'url': f'{page_url}?section=my_animal_list',
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'my_animal_list'}),
                 'status': 'disponible'
             },
             {
-                'name': 'Mes Commandes', 
+                'name': 'Mes Commandes',
                 'slug': 'commandes',
-                'icon': '📦',
-                'url': f'{page_url}?section=my_command',
+                'icon': '📦', 
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'my_command'}),
                 'status': 'disponible'
             },
             {
                 'name': 'Abonnements',
-                'slug': 'abonnements', 
+                'slug': 'abonnements',
                 'icon': '🔔',
-                'url': f'{page_url}?section=subscription',
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'subscription'}),
                 'status': 'disponible'
             },
             {
                 'name': 'Mes Avis',
                 'slug': 'avis',
                 'icon': '⭐',
-                'url': f'{page_url}?section=my_opinion',
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'my_opinion'}),
                 'status': 'bientôt'
             },
             {
                 'name': 'Paramètres',
                 'slug': 'parametres',
                 'icon': '⚙️',
-                'url': f'{page_url}?section=account_parameter',
+                'url': reverse('dashboard:dashboard_section', kwargs={'section_name': 'account_parameter'}),
                 'status': 'disponible'
             },
         ]
+        
+        # Marquer l'élément actif
+        for item in menu_items:
+            item['is_active'] = item['slug'] == active_section
+            
+        return menu_items
 
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
+    def get_section_data(self, request, template_section):
+        """Récupère les données spécifiques à chaque section"""
+        user = request.user
         
-        active_section = request.GET.get('section', 'compte')
-        
-        context.update({
-            'sidebar_menu': self.get_sidebar_menu(request),
-            'active_section': active_section,
-        })
-        
-        # Données de démonstration
-        if active_section == 'my_account':
-            user = request.user
-
-            context.update({
+        if template_section == 'my_account':
+            return {
                 'animals_count': Animal.objects.filter(owner=user).count(),
                 'orders_count': 3,
                 'subscriptions_count': 2
-            })
+            }
+        elif template_section == 'my_animal_list':
+            return {
+                'animals': Animal.objects.filter(owner=user)
+            }
+        elif template_section == 'my_command':
+            return {
+                'orders': [
+                    {'order_number': 'CMD-001', 'order_date': '2024-01-15', 'status': 'Livré'},
+                    {'order_number': 'CMD-002', 'order_date': '2024-01-20', 'status': 'En cours'},
+                ]
+            }
+        elif template_section == 'subscription':
+            return {
+                'subscriptions': [
+                    {'product_name': 'Croquettes Premium', 'status': 'Actif', 'start_date': '2024-01-01'},
+                    {'product_name': 'Soins Vétérinaires', 'status': 'Actif', 'start_date': '2024-01-10'},
+                ]
+            }
+        elif template_section == 'my_opinion':
+            return {'reviews': []}
+        elif template_section == 'account_parameter':
+            return {'user': user}
+            
+        return {}
 
-        elif active_section == 'my_animal_list':
-            user = request.user
-            context['animals'] = Animal.objects.filter(owner=user)
-        elif active_section == 'my_command':
-            context['orders'] = [
-                {'order_number': 'CMD-001', 'order_date': '2024-01-15', 'status': 'Livré'},
-                {'order_number': 'CMD-002', 'order_date': '2024-01-20', 'status': 'En cours'},
-            ]
-        elif active_section == 'subscription':
-            context['subscriptions'] = [
-                {'product_name': 'Croquettes Premium', 'status': 'Actif', 'start_date': '2024-01-01'},
-                {'product_name': 'Soins Vétérinaires', 'status': 'Actif', 'start_date': '2024-01-10'},
-            ]
-        elif active_section == 'my_opinion':
-            context['reviews'] = []
+    def get_context(self, request, active_section='compte', *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        
+        # Mapping sections
+        section_to_template_map = {
+            'compte': 'my_account',
+            'animaux': 'my_animal_list',
+            'commandes': 'my_command',
+            'abonnements': 'subscription', 
+            'avis': 'my_opinion',
+            'parametres': 'account_parameter'
+        }
+        
+        template_section = section_to_template_map.get(active_section, 'my_account')
+        
+        context.update({
+            'sidebar_menu': self.get_sidebar_menu(request, active_section),
+            'active_section': active_section,
+            'template_section': template_section,
+        })
+        
+        # Données spécifiques à la section
+        section_data = self.get_section_data(request, template_section)
+        context.update(section_data)
         
         return context
-    
-    

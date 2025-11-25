@@ -1,3 +1,4 @@
+<!-- dashboard/dashboard_page.html -->
 {% extends "base.html" %}
 {% load static %}
 
@@ -6,7 +7,7 @@
 /* Garder tous les styles CSS précédents */
 .dashboard-container {
     display: flex;
-    min-height: calc(100vh - 120px); /* Ajuster selon votre header/footer */
+    min-height: calc(100vh - 120px);
     background-color: #f8f9fa;
 }
 
@@ -188,8 +189,8 @@
             {% for item in sidebar_menu %}
             <li>
                 <a href="{{ item.url }}" 
-                   class="{% if item.slug == active_section %}active{% endif %}"
-                   hx-get="{{ item.url }}&partial=1"
+                   class="{% if item.is_active %}active{% endif %}"
+                   hx-get="{{ item.url }}"
                    hx-target="#dashboard-content"
                    hx-push-url="true"
                    hx-swap="innerHTML"
@@ -226,10 +227,7 @@
 
         <!-- Dynamic Content -->
         <div class="content-section" id="dashboard-content">
-            {% block dashboard_content %}
-                <!-- Contenu initial -->
-                {% include "dashboard/partials/my_account.html" %}
-            {% endblock %}
+            {% include "dashboard/partials/"|add:template_section|add:".html" %}
         </div>
     </div>
 </div>
@@ -237,28 +235,58 @@
 
 {% block extra_js %}
 <script>
-// Script pour mettre à jour la classe active sur les liens
 document.addEventListener('DOMContentLoaded', function() {
-    // Écouter les événements HTMX
-    document.body.addEventListener('htmx:beforeRequest', function(event) {
-        // Retirer la classe active de tous les liens
+    // Fonction pour mettre à jour le lien actif
+    function updateActiveLink() {
+        const currentPath = window.location.pathname;
+        
         document.querySelectorAll('.sidebar-menu a').forEach(link => {
             link.classList.remove('active');
+            
+            // Extraire la section depuis l'URL
+            const urlMatch = currentPath.match(/section\/([^/]+)/);
+            if (urlMatch) {
+                const currentSection = urlMatch[1];
+                const linkHxGet = link.getAttribute('hx-get');
+                if (linkHxGet && linkHxGet.includes(currentSection)) {
+                    link.classList.add('active');
+                }
+            } else {
+                // URL racine - section par défaut "compte"
+                const linkSection = link.getAttribute('data-section');
+                if (linkSection === 'compte') {
+                    link.classList.add('active');
+                }
+            }
         });
-        
-        // Ajouter la classe active au lien cliqué
-        event.detail.triggeringEvent.target.closest('a').classList.add('active');
+    }
+    
+    // Initialisation
+    updateActiveLink();
+    
+    // Événement HTMX avant la requête
+    document.body.addEventListener('htmx:beforeRequest', function(event) {
+        const clickedLink = event.detail.triggeringEvent.target.closest('a');
+        if (clickedLink) {
+            // Retirer active de tous les liens
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            // Ajouter active au lien cliqué
+            clickedLink.classList.add('active');
+        }
     });
     
-    // Gérer l'état actif au chargement initial
-    const currentUrl = new URL(window.location.href);
-    const currentSection = currentUrl.searchParams.get('section') || 'compte';
+    // Événement après le swap HTMX (pour confirmer)
+    document.body.addEventListener('htmx:afterSwap', function(event) {
+        // S'assurer que le bon lien est actif après le chargement
+        setTimeout(updateActiveLink, 50);
+    });
     
-    document.querySelectorAll('.sidebar-menu a').forEach(link => {
-        const section = link.getAttribute('data-section');
-        if (section === currentSection) {
-            link.classList.add('active');
-        }
+    // Gérer les erreurs HTMX
+    document.body.addEventListener('htmx:responseError', function(event) {
+        console.error('HTMX Error:', event);
+        updateActiveLink(); // Revenir à l'état précédent en cas d'erreur
     });
 });
 </script>

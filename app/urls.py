@@ -17,12 +17,7 @@ urlpatterns = [
     path("confessions/", include("app.confession.urls")),
     path("animals/", include("app.animals.urls")),
     path("users/", include("app.users.urls")),
-    # path("dashboard/", include("app.dashboard.urls", namespace="dashboard")),
-
-
-
-
-
+    path("dashboard/", include("app.dashboard.urls", namespace="dashboard")),
 ]
 
 
